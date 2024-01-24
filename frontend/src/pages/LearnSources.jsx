@@ -1,9 +1,17 @@
 import React from 'react'
+import { Empty } from '../layouts/Empty';
+import { Searcher } from '../components/ui/Searcher';
 
 export const LearnSources = () => {
+	const data = null;
+
 	return (
-		<div className="empty">
-			<h3>Learn sources</h3>
-		</div>
+		<>
+			<Searcher />
+			{data ? <div id='menuPage'>
+				Recall
+			</div> :
+			<Empty><p>Ur source stack is empty</p></Empty>}
+		</>
 	)
 }

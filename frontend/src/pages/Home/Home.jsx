@@ -2,25 +2,23 @@ import React from 'react'
 import { Header } from './layouts/Header'
 import { PageContainer } from './layouts/PageContainer'
 import { NavMenu } from './layouts/NavMenu'
-import {isDevice} from '../../services/checkDevice'
+import {isDeviceType} from '../../services/checkDeviceType'
 import { Avatar } from '../../components/Avatar'
 import avatar from '../../assets/profileGif.gif'
-import { Recall } from '../Recall'
 
 export const Home = () => {
+	const deviceType = isDeviceType();
+	const avatarEl = <Avatar src={avatar} href={'/menu'} />;
+
 	return (
 		<>
 			<Header>
 				{console.log()}
-				{isDevice().portable &&
-					<Avatar src={avatar} />
-				}
+				{deviceType?.portable && avatarEl}
 			</Header>
 			<PageContainer />
 			<NavMenu>
-				{isDevice().largeScreen &&
-					<Avatar src={avatar} />
-				}
+				{deviceType?.largeScreen && avatarEl}
 			</NavMenu>
 		</>
 	)

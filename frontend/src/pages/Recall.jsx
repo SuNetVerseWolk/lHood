@@ -1,9 +1,15 @@
 import React from 'react'
+import { Empty } from '../layouts/Empty';
 
 export const Recall = () => {
+	const data = null;
+
 	return (
-		<div className="empty">
-			<h3>Recall</h3>
-		</div>
+		<>
+			{data ? <div id='menuPage'>
+				Recall
+			</div> :
+			<Empty><p>There's none, to remind</p></Empty>}
+		</>
 	)
 }

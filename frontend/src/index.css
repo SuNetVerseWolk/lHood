@@ -9,11 +9,12 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+	-webkit-tap-highlight-color: transparent;
 }
 * {
 	margin: 0;
 	box-sizing: border-box;
-	-webkit-tap-highlight-color: transparent;
+	outline: none;
 }
 
 a {
@@ -58,9 +59,9 @@ button:focus-visible {
 }
 
 @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+  *:not(.learned, .learning, .gonnaLearn) {
+    color: #213547 !important;
+    background-color: #ffffff !important;
   }
   a:hover {
     color: #747bff;

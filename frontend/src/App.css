@@ -1,11 +1,33 @@
 :root {
 	--bgBlack: #111;
+	--padding: calc(10dvh / 6);
 }
 
 #root {
   max-width: 1280px;
   margin: 0 auto;
-	overflow: hidden;
+}
+#searcher {
+	position: relative;
+
+	> input {
+		width: 100%;
+    border-radius: 1rem;
+    border: none;
+    padding: 10px 15px;
+    background: var(--bgBlack);
+    color: #fff;
+    font-size: 20px;
+	}
+
+	> svg {
+		position: absolute;
+    top: 50%;
+    right: 10px;
+		height: clamp(20px, 10%, 40px);
+		width: clamp(20px, 10%, 40px);
+		translate: 0 -50%;
+	}
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -20,16 +42,21 @@ header, .navMenu {
 	gap: 5vw;
 
 	height: 10dvh;
-	padding: calc(10dvh / 6);
+	padding: var(--padding);
 	background-color: var(--bgBlack);
 	user-select: none;
 }
 main {
+	display: flex;
+	flex-flow: column nowrap;
 	height: 80dvh;
 	background: #181818;
+	overflow-y: scroll;
+	padding: var(--padding);
 }
 
 .avatar {
+	height: 100%;
 	border-radius: 100%;
 	aspect-ratio: 1;
 }
@@ -44,6 +71,8 @@ main {
 	}
 }
 .navMenu > .navbar {
+	width: 100%;
+
 	> a {
 		display: flex;
 		align-items: center;
@@ -51,7 +80,6 @@ main {
 
 		> svg {
 			height: 100%;
-			aspect-ratio: 2;
 		}
 	}
 
@@ -76,6 +104,7 @@ main {
 .gonnaLearn {
 	font-weight: 700;
 }
+
 .empty {
 	display: grid;
 	place-items: center;
