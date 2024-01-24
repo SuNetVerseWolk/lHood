@@ -4,6 +4,9 @@
 }
 
 #root {
+	display: flex;
+	flex-flow: column nowrap;
+	height: 100dvh;
   max-width: 1280px;
   margin: 0 auto;
 }
@@ -41,7 +44,7 @@ header, .navMenu {
 	justify-content: space-between;
 	gap: 5vw;
 
-	height: 10dvh;
+	height: 10%;
 	padding: var(--padding);
 	background-color: var(--bgBlack);
 	user-select: none;
@@ -49,7 +52,7 @@ header, .navMenu {
 main {
 	display: flex;
 	flex-flow: column nowrap;
-	height: 80dvh;
+	height: 80%;
 	background: #181818;
 	overflow-y: scroll;
 	padding: var(--padding);
