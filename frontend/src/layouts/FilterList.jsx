@@ -6,7 +6,12 @@ import { user } from '../data/user'
 
 export const FilterList = ({search}) => {
 	const { value } = useParams();
-	const sortedUserData = {...user, [value]: [...user[value]].filter(item => item.name.includes(search))};
+	const sortedUserData = {
+		...user,
+		[value]: user[value] ?
+			[...user[value]].filter(item => item.name.includes(search)) :
+			user[value]
+	};
 
 	return (
 		<div id='filterList'>
