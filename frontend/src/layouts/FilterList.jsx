@@ -2,27 +2,19 @@ import React from 'react'
 import { Empty } from './Empty'
 import { useParams } from 'react-router-dom'
 import { Avatar } from '../components/Avatar'
-import avatar from '../assets/profileGif.gif'
+import { user } from '../data/user'
 
-const user = {
-	name: 'Wolk',
-	people: [{name: 'John Doe', img: avatar}, {name: 'Mis. Stefany', img: avatar}, {name: 'Mis. Stefany', img: avatar}, {name: 'Mis. Stefany', img: avatar}, {name: 'Mis. Stefany', img: avatar}, {name: 'Mis. Stefany', img: avatar}, {name: 'Mis. Stefany', img: avatar}, {name: 'Mis. Stefany', img: avatar}, {name: 'Mis. Stefany', img: avatar}, {name: 'Mis. Stefany', img: avatar}],
-	learned: [{name: 'something'}],
-	learning: [{name: 'word'}]
-}
-
-export const FilterList = () => {
+export const FilterList = ({search}) => {
 	const { value } = useParams();
-	console.log(value)
+	const sortedUserData = {...user, [value]: [...user[value]].filter(item => item.name.includes(search))};
 
 	return (
 		<div id='filterList'>
 			{
-				user[value] &&
-				user[value].map(item => {
-					console.log(item)
+				sortedUserData[value] &&
+				sortedUserData[value].map(item => {
 					return (
-						<div>
+						<div key={item.name}>
 							{item?.img && <Avatar src={item.img} href='' />}
 							{item?.name && <p>{item.name}</p>}
 						</div>

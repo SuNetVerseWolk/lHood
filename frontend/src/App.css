@@ -1,6 +1,7 @@
 :root {
 	--bgBlack: #111;
-	--padding: calc(10dvh / 6);
+	--padding: calc(10dvh / 8);
+	--lineElHeight: 8%;
 }
 
 #root {
@@ -28,7 +29,7 @@
     top: 50%;
     right: 10px;
 		height: clamp(20px, 10%, 40px);
-		width: clamp(20px, 10%, 40px);
+		width: clamp(20px, 6%, 40px);
 		translate: 0 -50%;
 	}
 }
@@ -42,9 +43,10 @@
 		display: flex;
 		gap: var(--padding);
 		margin-bottom: var(--padding);
-		height: 10%;
+		height: var(--lineElHeight);
 		padding: var(--padding);
 		background-color: #00000025;
+		border-radius: .375rem;
 
 		> p {
 			display: grid;
@@ -64,7 +66,7 @@ header, .navMenu {
 	justify-content: space-between;
 	gap: 5vw;
 
-	height: 10%;
+	height: var(--lineElHeight);
 	padding: var(--padding);
 	background-color: var(--bgBlack);
 	user-select: none;
@@ -75,7 +77,7 @@ main {
 	gap: var(--padding);
 
 	background: #181818;
-	height: 80%;
+	height: 84%;
 	padding: var(--padding);
 }
 
