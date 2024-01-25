@@ -7,7 +7,6 @@ export const LearnSources = () => {
 
 	return (
 		<>
-			<Searcher />
 			{data ? <div id='menuPage'>
 				Recall
 			</div> :

@@ -32,6 +32,26 @@
 		translate: 0 -50%;
 	}
 }
+#filterList {
+	display: flex;
+	flex-flow: column nowrap;
+	height: 100%;
+	overflow-y: scroll;
+
+	> div:not(.empty) {
+		display: flex;
+		gap: var(--padding);
+		margin-bottom: var(--padding);
+		height: 10%;
+		padding: var(--padding);
+		background-color: #00000025;
+
+		> p {
+			display: grid;
+			place-items: center;
+		}
+	}
+}
 
 @media (prefers-reduced-motion: no-preference) {
   /*.logo {
@@ -52,9 +72,10 @@ header, .navMenu {
 main {
 	display: flex;
 	flex-flow: column nowrap;
-	height: 80%;
+	gap: var(--padding);
+
 	background: #181818;
-	overflow-y: scroll;
+	height: 80%;
 	padding: var(--padding);
 }
 

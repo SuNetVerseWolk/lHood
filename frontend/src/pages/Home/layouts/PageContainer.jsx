@@ -4,20 +4,16 @@ import {
 	Routes,
 } from 'react-router-dom';
 import { Recall } from '../../Recall';
-import { People } from '../../People';
-import { LearnSources } from '../../LearnSources';
-import { Filter } from '../../Filter';
 import { Menu } from '../../Menu';
+import { PageSearchContainer } from './PageSearchContainer';
 
 export const PageContainer = () => {
 	return (
 		<main>
 			<Routes>
-				<Route path='/people' element={<People />} />
-				<Route path='/recall' element={<Recall />} />
-				<Route path='/learnSourcesBtn' element={<LearnSources />} />
-				<Route path='/filter/:learnType' element={<Filter />} />
+				<Route path='/*' element={<Recall />} />
 				<Route path='/menu' element={<Menu />} />
+				<Route path='/search/:value' element={<PageSearchContainer />} />
 			</Routes>
 		</main>
 	)
