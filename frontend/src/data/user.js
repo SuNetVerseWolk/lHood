@@ -2,29 +2,7 @@ import avatar from '../assets/profileGif.gif'
 
 export const user = {
 	name: 'Wolk',
-	people: [
-    {name: 'John Doe', img: avatar},
-    {name: 'Mis. Sarahj', img: avatar},
-    {name: 'Mis. Emilyl', img: avatar},
-    {name: 'Mis. Sophian', img: avatar},
-    {name: 'Mis. Isabellan', img: avatar},
-    {name: 'Mis. b', img: avatar},
-    {name: 'Mis. Mian', img: avatar},
-    {name: 'Mis. Charlotteb', img: avatar},
-    {name: 'Mis. Oliviab', img: avatar},
-    {name: 'Mis. Ameliav', img: avatar},
-    {name: 'Mis. Harperv', img: avatar},
-    {name: 'Mis. Sarahh', img: avatar},
-    {name: 'Mis. Emilyi', img: avatar},
-    {name: 'Mis. Sophiaj', img: avatar},
-    {name: 'Mis. Isabella', img: avatar},
-    {name: 'Mis. Ava', img: avatar},
-    {name: 'Mis. Mia', img: avatar},
-    {name: 'Mis. Charlotte', img: avatar},
-    {name: 'Mis. Olivia', img: avatar},
-    {name: 'Mis. Amelia', img: avatar},
-    {name: 'Mis. Harper', img: avatar}
-  ],
+	people: [],
 	learned: [
     {name: 'something'},
     {name: 'another thing'},
@@ -65,3 +43,27 @@ export const user = {
     {name: 'yet another word'}
   ]
 }
+
+export const people = [
+	{key: '$0', name: 'John Doe', img: avatar},
+	{key: '$1', name: 'Mis. Sarahj', img: avatar},
+	{key: '$2', name: 'Mis. Emilyl', img: avatar},
+	{key: '$3', name: 'Mis. Sophian', img: avatar},
+	{key: '$4', name: 'Mis. Isabellan', img: avatar},
+	{key: '$5', name: 'Mis. b', img: avatar},
+	{key: '$6', name: 'Mis. Mian', img: avatar},
+	{key: '$7', name: 'Mis. Charlotteb', img: avatar},
+	{key: '$8', name: 'Mis. Oliviab', img: avatar},
+	{key: '$9', name: 'Mis. Ameliav', img: avatar},
+	{key: '$a', name: 'Mis. Harperv', img: avatar},
+	{key: '$a1', name: 'Mis. Sarahh', img: avatar},
+	{key: '$a2', name: 'Mis. Emilyi', img: avatar},
+	{key: '$a3', name: 'Mis. Sophiaj', img: avatar},
+	{key: '$a4', name: 'Mis. Isabella', img: avatar},
+	{key: '$a5', name: 'Mis. Ava', img: avatar},
+	{key: '$a6', name: 'Mis. Mia', img: avatar},
+	{key: '$a7', name: 'Mis. Charlotte', img: avatar},
+	{key: '$a8', name: 'Mis. Olivia', img: avatar},
+	{key: '$a9', name: 'Mis. Amelia', img: avatar},
+	{key: '$b', name: 'Mis. Harper', img: avatar}
+]

@@ -10,7 +10,7 @@ export const PageSearchContainer = () => {
 	return (
 		<>
 			<Searcher placeholder={'Search ' + value} value={search} setValue={setSearch} />
-			<FilterList search={search} />
+			<FilterList search={search} setSearch={setSearch} />
 		</>
 	)
 }

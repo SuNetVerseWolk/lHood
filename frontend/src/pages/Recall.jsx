@@ -11,7 +11,7 @@ export const Recall = () => {
 			{data ? <div id='menuPage'>
 				Recall
 			</div> :
-			<Empty><p>There's none, to remind</p></Empty>}
+			<Empty>There's none, to remind</Empty>}
 		</>
 	)
 }

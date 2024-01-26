@@ -1,4 +1,6 @@
 :root {
+	--accentColor: #880099;
+	--activeColor: #a0c;
 	--bgBlack: #111;
 	--padding: calc(10dvh / 8);
 	--lineElHeight: 8%;
@@ -38,21 +40,6 @@
 	flex-flow: column nowrap;
 	height: 100%;
 	overflow-y: scroll;
-
-	> div:not(.empty) {
-		display: flex;
-		gap: var(--padding);
-		margin-bottom: var(--padding);
-		height: var(--lineElHeight);
-		padding: var(--padding);
-		background-color: #00000025;
-		border-radius: .375rem;
-
-		> p {
-			display: grid;
-			place-items: center;
-		}
-	}
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -86,6 +73,24 @@ main {
 	border-radius: 100%;
 	aspect-ratio: 1;
 }
+.item {
+	display: flex;
+	gap: var(--padding);
+	margin-bottom: var(--padding);
+	height: var(--lineElHeight);
+	padding: var(--padding);
+	background-color: #00000025;
+	border-radius: .375rem;
+
+	> p {
+		display: grid;
+		place-items: center;
+
+		&#name {
+			margin-right: auto;
+		}
+	}
+}
 .navbar {
 	display: flex;
 	justify-content: space-between;
@@ -93,7 +98,7 @@ main {
 	gap: clamp(10px, 7vw, 100px);
 
 	.active {
-		color: #a0c;
+		color: var(--activeColor);
 	}
 }
 .navMenu > .navbar {
