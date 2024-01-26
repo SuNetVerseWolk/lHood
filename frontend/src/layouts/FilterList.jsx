@@ -9,7 +9,7 @@ export const FilterList = ({search}) => {
 	const sortedUserData = {
 		...user,
 		[value]: user[value] ?
-			[...user[value]].filter(item => item.name.includes(search)) :
+			[...user[value]].filter(item => item.name.toLowerCase().includes(search.toLowerCase())) :
 			user[value]
 	};
 
