@@ -1,7 +1,7 @@
 import React from 'react'
-import { Empty } from '../layouts/Empty';
+import Empty from '../layouts/Empty';
 
-export const Menu = () => {
+const Menu = () => {
 	const data = null;
 
 	return (
@@ -12,3 +12,5 @@ export const Menu = () => {
 		</>
 	)
 }
+
+export default Menu;

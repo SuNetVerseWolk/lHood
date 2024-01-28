@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Searcher } from '../../../components/ui/Searcher';
-import { FilterList } from '../../../layouts/FilterList';
+import { Searcher } from '../components/ui/Searcher';
+import FilterList from '../layouts/FilterList';
 
-export const PageSearchContainer = () => {
+const Search = () => {
 	const [search, setSearch] = useState('');
 	const { value } = useParams();
 
@@ -14,3 +14,5 @@ export const PageSearchContainer = () => {
 		</>
 	)
 }
+
+export default Search;

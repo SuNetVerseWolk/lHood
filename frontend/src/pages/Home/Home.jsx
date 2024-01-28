@@ -1,14 +1,14 @@
 import React from 'react'
-import { Header } from './layouts/Header'
-import { PageContainer } from './layouts/PageContainer'
-import { NavMenu } from './layouts/NavMenu'
-import {isDeviceType} from '../../services/checkDeviceType'
-import { Avatar } from '../../components/Avatar'
+import { Outlet } from 'react-router-dom'
+import { isDeviceType } from '../../services/checkDeviceType'
+import Header from './layouts/Header'
+import Avatar from '../../components/Avatar'
+import NavMenu from './layouts/NavMenu'
 import avatar from '../../assets/profileGif.gif'
 
-export const Home = () => {
+const Home = () => {
 	const deviceType = isDeviceType();
-	const avatarEl = <Avatar src={avatar} href={'/menu'} />;
+	const avatarEl = <Avatar src={avatar} href={'menu'} />;
 
 	return (
 		<>
@@ -16,10 +16,14 @@ export const Home = () => {
 				{console.log()}
 				{deviceType?.portable && avatarEl}
 			</Header>
-			<PageContainer />
+			<main>
+				<Outlet />
+			</main>
 			<NavMenu>
 				{deviceType?.largeScreen && avatarEl}
 			</NavMenu>
 		</>
 	)
 }
+
+export default Home;

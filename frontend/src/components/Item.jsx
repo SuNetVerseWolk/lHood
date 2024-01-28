@@ -1,18 +1,23 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import Avatar from './Avatar';
 
-export const Item = ({to, children, itemKey}) => {
+const Item = ({children, id, name, img}) => {
 	const navigate = useNavigate();
-	const handleItemClick = (e) => {
-		console.log(e.target.tagName)
-    if (e.target.tagName !== 'BUTTON') {
-      navigate(`/${to}/${itemKey}`);
-    }
-  };
 
 	return (
-		<div className='item' onClick={handleItemClick}>
+		<div
+			className='item'
+			onClick={(e) => {
+				if (e.target.tagName !== 'BUTTON')
+					navigate(id);
+			}}
+		>
+			{img && <Avatar src={img} href='' />}
+			<p id='name'>{name}</p>
 			{children}
 		</div>
 	)
 }
+
+export default Item;

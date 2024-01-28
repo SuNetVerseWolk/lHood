@@ -1,9 +1,7 @@
 import React from 'react'
-import { Empty } from '../layouts/Empty';
-import { useMatch } from 'react-router-dom';
+import Empty from '../layouts/Empty';
 
-export const Recall = () => {
-	const match = useMatch('./*');
+const Recall = () => {
 	const data = null;
 
 	return (
@@ -15,3 +13,5 @@ export const Recall = () => {
 		</>
 	)
 }
+
+export default Recall;
