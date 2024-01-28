@@ -1,0 +1,60 @@
+#root {
+	grid-template-columns: 5.5vw 50vw;
+	grid-template-rows: 5.5vh 77.5vh !important;
+	gap: var(--padding);
+
+	padding: var(--padding);
+	padding-right: 15vw;
+	max-width: fit-content;
+	margin: 0 auto;
+}
+header {
+	grid-column: 2;
+	height: 5.5vh !important;
+	width: 90% !important;
+	background-color: transparent !important;
+	padding: 0 !important;
+}
+main {
+	grid-column: 2;
+	border-radius: 1.5rem;
+	padding: var(--lPadding) !important;
+}
+.navMenu {
+	grid-row: 1/2;
+	flex-flow: column nowrap;
+	height: 50vh !important;
+	border-radius: 1.5rem;
+	padding: var(--lPadding) !important;
+
+	.avatar {
+		height: auto;
+		width: 100%;
+		margin-bottom: var(--lPadding);
+	}
+
+	.navbar {
+		flex-flow: column nowrap;
+		justify-content: flex-start !important;
+		gap: var(--lPadding);
+		padding: var(--sPadding);
+
+		& a, svg {
+			height: auto;
+			width: inherit;
+			/*aspect-ratio: ;*/
+		}
+	}
+}
+#searcher {
+	width: 20vw !important;
+
+	> input {
+		padding: 0 !important;
+		padding-left: var(--lPadding) !important;
+	}
+
+	> svg {
+		height: 50% !important;
+	}
+}
