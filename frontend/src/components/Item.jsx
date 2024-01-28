@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import Navbar from '../layouts/Navbar'
 import Avatar from './Avatar';
 
 const Item = ({children, id, name, img}) => {
@@ -8,14 +9,18 @@ const Item = ({children, id, name, img}) => {
 	return (
 		<div
 			className='item'
-			onClick={(e) => {
-				if (e.target.tagName !== 'BUTTON')
-					navigate(id);
-			}}
+			onClick={(e) => navigate(id)}
 		>
-			{img && <Avatar src={img} href='' />}
-			<p id='name'>{name}</p>
-			{children}
+			<div id="main">
+				{img && <Avatar src={img} href='' />}
+				<p id='name'>{name}</p>
+			</div>
+			{
+				children &&
+				<Navbar>
+					{children}
+				</Navbar>
+			}
 		</div>
 	)
 }

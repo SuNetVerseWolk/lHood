@@ -1,34 +1,34 @@
 import { useState, useEffect } from 'react';
 
 export const breakpoints = {
-  phone: 425,
-  tablet: 768,
-  pc: 1440,
-  tv: 2560,
+  phone: 767,
+  tablet: 1023,
+  pc: 2559
 };
 
 export const isDeviceType = () => {
   const [deviceType, setDeviceType] = useState(null);
 
   useEffect(() => {
-    const handleResize = () => {
+    const resize = () => {
       const width = window.innerWidth;
-      let newDeviceType = {
+			const doneSize = {
         phone: width <= breakpoints.phone,
         tablet: width > breakpoints.phone && width <= breakpoints.tablet,
         portable: width <= breakpoints.tablet,
         pc: width > breakpoints.tablet && width <= breakpoints.pc,
-        tv: width > breakpoints.pc && width <= breakpoints.tv,
+        tv: width > breakpoints.pc,
         largeScreen: width > breakpoints.tablet,
       };
-      setDeviceType(newDeviceType);
+			
+			setDeviceType(doneSize);
     };
 
-    handleResize();
-    window.addEventListener('resize', handleResize);
+		resize();
+    window.addEventListener('resize', resize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', resize);
     };
   }, []);
 

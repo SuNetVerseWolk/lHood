@@ -2,6 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom';
 import data from '../data/user';
 import Item from '../components/Item';
+import AddPeopleSvg from '../assets/addPeople.svg?react'
 
 const GlobalSearchItems = ({ mark, id, setSearch }) => {
 	if (!id) return;
@@ -13,11 +14,12 @@ const GlobalSearchItems = ({ mark, id, setSearch }) => {
 			if (name && img)
 				return (
 					<Item name={name} img={img} id={id}>
-						<button style={{color: 'var(--accentColor)'}} onClick={e => {
+						<AddPeopleSvg onClick={e => {
+							e.stopPropagation();
 							if (!data.user[value]) data.user[value] = [];
 							data.user[value]?.push(id);
 							setSearch('');
-						}}>+</button>
+						}}/>
 					</Item>
 				)
 		}

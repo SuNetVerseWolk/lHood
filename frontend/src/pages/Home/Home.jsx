@@ -6,13 +6,13 @@ import Avatar from '../../components/Avatar'
 import NavMenu from './layouts/NavMenu'
 import avatar from '../../assets/profileGif.gif'
 
-const Home = () => {
+const Home = ({value, search, setSearch}) => {
 	const deviceType = isDeviceType();
 	const avatarEl = <Avatar src={avatar} href={'menu'} />;
 
 	return (
 		<>
-			<Header>
+			<Header value={value} search={search} setSearch={setSearch}>
 				{console.log()}
 				{deviceType?.portable && avatarEl}
 			</Header>

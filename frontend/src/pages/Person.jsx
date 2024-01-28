@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom'
 import data from '../data/user';
 
 const Person = () => {
-	const { key } = useParams();
-	const { name, img } = data.people.find(person => person.key === key);
+	const { id } = useParams();
+	const { name, img } = data.people.find(person => person.id === id);
 
 	return (
 		<>

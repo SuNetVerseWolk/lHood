@@ -1,15 +1,12 @@
-import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import React from 'react'
 import { Searcher } from '../components/ui/Searcher';
 import FilterList from '../layouts/FilterList';
+import { isDeviceType } from '../services/checkDeviceType';
 
-const Search = () => {
-	const [search, setSearch] = useState('');
-	const { value } = useParams();
-
+const Search = ({value, search, setSearch}) => {
 	return (
 		<>
-			<Searcher placeholder={'Search ' + value} value={search} setValue={setSearch} />
+			{isDeviceType()?.portable && <Searcher placeholder={'Search ' + value} value={search} setValue={setSearch} />}
 			<FilterList search={search} setSearch={setSearch} />
 		</>
 	)

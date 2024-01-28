@@ -1,64 +1,72 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-
-  background-color: #333;
-
-  font-synthesis: 0;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-	-webkit-tap-highlight-color: transparent;
-}
 * {
-  color: #ddd;
 	margin: 0;
-  padding: 0;
-	box-sizing: border-box;
+	border: 0;
+	padding: 0;
 	outline: 0;
+	text-decoration: 0;
+	box-sizing: border-box;
+	color: var(--color);
+  font-family: system-ui, Helvetica, Arial, sans-serif;
 }
+:root {
+	--color: #ddd;
+	--accentColor: #880099;
+	--activeColor: #a0c;
+	--learnedColor: #7c10e1;
+	--learningColor: #8a2be2;
+	--gonnaLearnColor: #9f56e3;
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+	--bgBlack: #111;
+	--mainBg: #232323;
+	--itemBg: #151515;
 
-body {
-  min-width: 320px;
-  min-height: 100vh;
-	overflow: hidden;
+	--sPadding: calc(5dvh / 8);
+	--padding: calc(10dvh / 8);
+	--lPadding: calc(20dvh / 8);
+	
+	--itemH: 6vh;
+
+	-webkit-tap-highlight-color: transparent;
+	user-select: none;
 }
 img {
 	object-fit: cover;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+body {
+	min-width: 320px;
+  min-height: 100vh;
+	background-color: #333;
 }
-
-button {
+#root {
 	display: grid;
-	place-items: center;
-	aspect-ratio: 1;
-
-  border: 0;
-  border-radius: 8px;
-
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+	grid-template-rows: 8vh 84vh 8vh;
 }
-button:hover {
-  border-color: #646cff;
-}
+header {
+	display: flex;
+	justify-content: space-between;
+	padding: var(--padding) var(--lPadding);
 
+	.navbar {
+		gap: var(--lPadding);
+	}
+}
+main {
+	display: flex;
+	flex-flow: column nowrap;
+	gap: var(--padding);
+
+	background-color: var(--mainBg);
+	padding: var(--padding);
+	overflow-y: hidden;
+}
+.navMenu {
+	padding: var(--padding) var(--lPadding);
+}
+header, .navMenu {
+	height: 8vh;
+	background-color: var(--bgBlack);
+}
 @media (prefers-color-scheme: light) {
   *:not(.learned, .learning, .gonnaLearn) {
     color: #213547 !important;

@@ -3,6 +3,7 @@ import avatar from '../assets/profileGif.gif'
 const data = {
 	user: {
 		name: 'Wolk',
+		people: ['0','1','2','3','4','5','6','7','8','9', 'a', 'a1', 'a2', 'a3'],
 		learned: [
 			{name: 'something'},
 			{name: 'another thing'},
