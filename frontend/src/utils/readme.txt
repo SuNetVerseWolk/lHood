@@ -1,1 +1,0 @@
-Here shoud be functions like pure functions

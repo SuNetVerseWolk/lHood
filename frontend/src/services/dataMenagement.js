@@ -1,1 +1,0 @@
-export const getPeople = (people, user) => people?.filter(person => user?.people?.includes(person.id));
