@@ -100,18 +100,14 @@
 				font-size: 20px;
 			}
 		}
-		div {
+		.navbar {
 			gap: inherit;
-
-			.navbar {
-				gap: inherit;
-		
-				> div, svg {
-					background-color: var(--itemBg);
-					padding: var(--sPadding);
-					border-radius: 0.375rem;
-					height: 100%;
-				}
+	
+			> div, svg {
+				background-color: var(--itemBg);
+				padding: var(--sPadding);
+				border-radius: 0.375rem;
+				height: 100%;
 			}
 		}
 	}

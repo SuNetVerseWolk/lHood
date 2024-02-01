@@ -25,10 +25,10 @@ const FilterList = ({search, setSearch}) => {
 		else
 			items = data.user[value]?.filter(item => item.name?.toLowerCase().includes(search));
 
-		setSortedUserData(items?.map(item => {
+		setSortedUserData(items?.map((item, i) => {
 			const {name, img, id} = item || {}
 			return (
-				<Item name={name} img={img} id={id} key={id || name} />
+				<Item name={name} img={img} id={id} key={id || name} i={i} />
 			)
 		}));
 	}, [value, search])

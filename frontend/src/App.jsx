@@ -1,4 +1,4 @@
-import { Route, Routes, useParams } from 'react-router-dom'
+import { Route, Routes, useLocation, useParams } from 'react-router-dom'
 import { useState } from 'react';
 import './App.css'
 import Home from './pages/Home/Home'
@@ -12,6 +12,9 @@ import { isDeviceType } from './services/checkDeviceType';
 const App = () => {
 	const [search, setSearch] = useState('');
 	const { value } = useParams();
+	console.clear();
+	console.log(location)
+	console.log(value)
 
   return (
 		<>
@@ -22,7 +25,7 @@ const App = () => {
 					<Route path='recall' element={<Recall />} />
 					<Route path='get'>
 						<Route path=':value' element={<Search value={value} search={search} setSearch={setSearch} />} />
-						<Route path='people/:id' element={<Person />} />
+						<Route path=':value/:id' element={<Person />} />
 					</Route>
 					<Route path='menu' element={<Menu />} />
 				</Route>

@@ -1,56 +1,55 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import Navbar from '../layouts/Navbar'
 import Avatar from './Avatar'
-import ItemMenuSvg from '../assets/itemMenu.svg?react'
+import ItemsBtn from './ItemsBtn'
 
-const Item = ({children, id, name, img}) => {
+const Item = ({children, id, name, img, i}) => {
 	const navigate = useNavigate();
 	let [holded, setHolded] = useState(false);
+	let isHolded = false;
+
+	const item = {
+		hidden: {
+			display: 'none',
+			scaleX: 0,
+			transformOrigin: children ? 'center left' : 'center right'
+		},
+		showen: {
+			scaleX: 1,
+			display: 'flex'
+		}
+	}
 
 	return (
 		<motion.div
 			className='item'
-			animate={{scaleX: 1}}
-			initial={{scaleX: 0, transformOrigin: children ? 'center left' : 'center right'}}
-			transition={{ease: 'easeOut'}}
+			animate={item.showen}
+			initial={item.hidden}
+			transition={{ease: 'easeOut', delay: i * .1 }}
 			
-			onClick={(e) => navigate(id)}
-			onTouchStart={e => setTimeout(e => setHolded(true), 500)}
-			onTouchEnd={e => setTimeout(e => setHolded(false), 5000)}
+			onClick={e => navigate(id)}
+			onTouchStartCapture={e => {
+				isHolded = true;
+				setTimeout(e => isHolded && setHolded(true), 700);
+			}}
+			onTouchEnd={e => {
+				isHolded = false;
+				setTimeout(e => setHolded(false), 5000);
+			}}
 		>
-			<motion.div id="main" transition={{ease: 'backInOut'}}>
+			<motion.div id="main" transition={{ease: 'backInOut'}} whileTap={{scale: .95}}>
 				{img && <Avatar src={img} href='' />}
 				<p id='name'>{name}</p>
 			</motion.div>
-
-			{console.log(holded)}
 			{
 				<motion.div
-					animate={{visibility: 'visible', scaleX: 1}}
-					transition={{delay: .3, ease: 'backOut'}}
-					initial={{
-						visibility: 'hidden',
-						scaleX: 0,
-						transformOrigin: 'center right'
-					}}>
+					initial={item.hidden}
+					animate={(children || holded) ? item.showen : item.hidden}
+				>
 					<Navbar>
-						{children || !holded ?
-							children :
-							<motion.div
-								animate={{scaleX: 1}}
-								transition={{delay: .3, ease: 'backOut'}}
-								initial={{
-									scaleX: 0,
-									transformOrigin: 'center right'
-								}}
-								onClick={e => {
-								e.stopPropagation();
-							}}>
-								<ItemMenuSvg />
-							</motion.div>
-						}
+						<ItemsBtn children={children} holded={holded}/>
 					</Navbar>
 				</motion.div>
 			}
