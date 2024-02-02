@@ -6,24 +6,24 @@ import Empty from './Empty'
 import GlobalSearchItems from './globalSearchItems'
 import { getPeople } from '../services/dataMenagement'
 
-const FilterList = ({search, setSearch}) => {
-	const { value } = useParams();
+const FilterList = ({searchValue, clearSearchValue}) => {
+	const { search } = useParams();
 	const [sortedUserData, setSortedUserData] = useState([]);
 
-	let id = search.slice(1);
-	let mark = search[0];
+	let id = searchValue.slice(1);
+	let mark = searchValue[0];
 
 	useEffect(e => {
 		let items;
-		if (value === 'people') {
+		if (search === 'people') {
 			const people = getPeople(data.people, data.user);
 			if (mark === '#')
-				items = people?.filter(item => item.id?.toLowerCase().includes(search.slice(1)));
+				items = people?.filter(item => item.id?.toLowerCase().includes(searchValue.slice(1)));
 			else
-				items = people?.filter(item => item.name?.toLowerCase().includes(search));
+				items = people?.filter(item => item.name?.toLowerCase().includes(searchValue));
 		}
 		else
-			items = data.user[value]?.filter(item => item.name?.toLowerCase().includes(search));
+			items = data.user[search]?.filter(item => item.name?.toLowerCase().includes(searchValue));
 
 		setSortedUserData(items?.map((item, i) => {
 			const {name, img, id} = item || {}
@@ -31,11 +31,11 @@ const FilterList = ({search, setSearch}) => {
 				<Item name={name} img={img} id={id} key={id || name} i={i} />
 			)
 		}));
-	}, [value, search])
+	}, [search, searchValue])
 
 	return (
-		<div id='filterList'>
-			<GlobalSearchItems mark={mark} id={id} setSearch={setSearch} />
+		<div id='filterList' className={search}>
+			<GlobalSearchItems search={search} mark={mark} id={id} clearSearchValue={clearSearchValue} />
 			{ sortedUserData?.length ? sortedUserData : <Empty /> }
 		</div>
 	)

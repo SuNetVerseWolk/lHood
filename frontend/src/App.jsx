@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation, useParams } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { useState } from 'react';
 import './App.css'
 import Home from './pages/Home/Home'
@@ -7,25 +7,21 @@ import Menu from './pages/Menu';
 import Person from './pages/Person';
 import Search from './pages/Search'
 import { isDeviceType } from './services/checkDeviceType';
-//import '../public/AppDesktop.css'
 
 const App = () => {
-	const [search, setSearch] = useState('');
-	const { value } = useParams();
-	console.clear();
-	console.log(location)
-	console.log(value)
+	const [searchValue, setSearchValue] = useState('');
+	const clearSearchValue = e => setSearchValue('');
 
   return (
 		<>
 			{isDeviceType()?.largeScreen && <link rel="stylesheet" href="/lHood/AppDesktop.css" />}
 			<Routes>
-				<Route path='/lHood' element={<Home value={value} search={search} setSearch={setSearch} />}>
+				<Route path='/lHood' element={<Home search={searchValue} setSearch={setSearchValue} />}>
 					<Route path='' element={<Recall />} />
 					<Route path='recall' element={<Recall />} />
 					<Route path='get'>
-						<Route path=':value' element={<Search value={value} search={search} setSearch={setSearch} />} />
-						<Route path=':value/:id' element={<Person />} />
+						<Route path=':search' element={<Search searchValue={searchValue} setSearchValue={setSearchValue} clearSearchValue={clearSearchValue} />} />
+						<Route path='people/:id' element={<Person />} />
 					</Route>
 					<Route path='menu' element={<Menu />} />
 				</Route>

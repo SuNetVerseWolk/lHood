@@ -3,11 +3,11 @@ import { Searcher } from '../components/ui/Searcher';
 import FilterList from '../layouts/FilterList';
 import { isDeviceType } from '../services/checkDeviceType';
 
-const Search = ({value, search, setSearch}) => {
+const Search = ({searchValue, setSearchValue, clearSearchValue}) => {
 	return (
 		<>
-			{isDeviceType()?.portable && <Searcher placeholder={'Search ' + value} value={search} setValue={setSearch} />}
-			<FilterList search={search} setSearch={setSearch} />
+			{isDeviceType()?.portable && <Searcher searchValue={searchValue} setSearchValue={setSearchValue} />}
+			<FilterList searchValue={searchValue} clearSearchValue={clearSearchValue} />
 		</>
 	)
 }

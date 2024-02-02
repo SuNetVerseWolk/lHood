@@ -4,12 +4,12 @@ import Navbar from '../../../layouts/Navbar'
 import { isDeviceType } from '../../../services/checkDeviceType'
 import { Searcher } from '../../../components/ui/Searcher'
 
-const Header = ({children, value, search, setSearch}) => {
+const Header = ({children, searchValue, setSearchValue}) => {
 	return (
 		<header>
 			{children}
-			
-			{isDeviceType()?.largeScreen && <Searcher placeholder={'Search ' + value} value={search} setValue={setSearch} />}
+
+			{isDeviceType()?.largeScreen && <Searcher value={searchValue} setValue={setSearchValue} />}
 			<Navbar>
 				<NavLink to={'get/learned'} className={'learned'}>1595</NavLink>
 				<NavLink to={'get/learning'} className={'learning'}>197</NavLink>
