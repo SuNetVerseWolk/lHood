@@ -34,7 +34,7 @@ const FilterList = ({searchValue, clearSearchValue}) => {
 	}, [search, searchValue])
 
 	return (
-		<div id='filterList' className={search}>
+		<div id='filterList'>
 			<GlobalSearchItems search={search} mark={mark} id={id} clearSearchValue={clearSearchValue} />
 			{ sortedUserData?.length ? sortedUserData : <Empty /> }
 		</div>
