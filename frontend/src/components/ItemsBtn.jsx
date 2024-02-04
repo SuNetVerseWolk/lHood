@@ -12,23 +12,13 @@ const ItemsBtn = ({children, holded}) => {
 		transition: {delay: .3, ease: 'backOut'},
 	}
 	
-	if (children) return (
-		<motion.div
-			initial={variants.initial}
-			animate={variants.animate}
-			transition={variants.transition}
-		>{children}</motion.div>
-	)
-	
 	return (
 		<motion.div
 			initial={variants.initial}
 			animate={variants.animate}
 			transition={variants.transition}
-
-			onClick={e => {
-			e.stopPropagation();
-		}}><ItemMenuSvg /></motion.div>
+			whileTap={{scale: .97}}
+		>{children ? children : <ItemMenuSvg />}</motion.div>
 	)
 }
 

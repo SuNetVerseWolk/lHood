@@ -37,28 +37,56 @@
     user-select: none;
 	}
 }
-#searcher {
-	display: flex;
-	position: relative;
-	width: 100%;
-	font-size: 20px;
+#searcherBox {
+	> div {
+		height: 100%;
 
-	> input {
-		width: inherit;
-    border-radius: 1rem;
-    padding: var(--padding) var(--lPadding);
-    background: var(--bgBlack);
-    color: #fff;
-    font-size: inherit;
+		> svg {
+			height: inherit;
+			fill: var(--gonnaLearnColor);
+			background-color: var(--bgBlack);
+			padding: var(--padding);
+
+			&:last-child {
+				border-radius: 0 .7rem .7rem 0;
+			}
+		}
 	}
 
-	> svg {
-		position: absolute;
-    top: 50%;
-    right: var(--lPadding);
+	#searcher {
+		display: flex;
+		position: relative;
+		font-size: 20px;
+		width: 100%;
+		border-radius: .7rem;
 
-		height: calc(100% - var(--lPadding));
-		translate: 0 -50%;
+		> input {
+			width: inherit;
+			border-radius: inherit;
+			padding: var(--padding) var(--lPadding);
+			background: var(--bgBlack);
+			color: #fff;
+			font-size: inherit;
+		}
+
+		> svg {
+			position: absolute;
+			top: 50%;
+			right: var(--lPadding);
+
+			height: calc(100% - var(--lPadding) - var(--sPadding));
+			translate: 0 -50%;
+		}
+	}
+
+	&.btnBox {
+		display: flex;
+		gap: var(--sPadding);
+
+		#searcher {
+			width: auto;
+			border-radius: .7rem 0 0 .7rem;
+		}
 	}
 }
 .navbar {

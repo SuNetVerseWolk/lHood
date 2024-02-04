@@ -28,31 +28,32 @@ const Item = ({children, id, name, img, i}) => {
 			animate={item.showen}
 			initial={item.hidden}
 			transition={{ease: 'easeOut', delay: i * .1 }}
-			
-			onClick={e => navigate(id)}
-			onTouchStartCapture={e => {
-				isHolded = true;
-				setTimeout(e => isHolded && setHolded(true), 700);
-			}}
-			onTouchEnd={e => {
-				isHolded = false;
-				setTimeout(e => setHolded(false), 5000);
-			}}
 		>
-			<motion.div id="main" transition={{ease: 'backInOut'}} whileTap={{scale: .95}}>
+			<motion.div
+				id="main"
+				whileTap={{scale: .98}}
+				onTouchStartCapture={e => {
+					isHolded = true;
+					setTimeout(e => isHolded && setHolded(true), 700);
+				}}
+				onTouchEnd={e => {
+					isHolded = false;
+					setTimeout(e => setHolded(false), 5000);
+				}}
+				
+				onClick={e => navigate(id)}
+			>
 				{img && <Avatar src={img} href='' />}
 				<p id='name'>{name}</p>
 			</motion.div>
-			{
-				<motion.div
-					initial={item.hidden}
-					animate={(children || holded) ? item.showen : item.hidden}
-				>
-					<Navbar>
-						<ItemsBtn children={children} holded={holded}/>
-					</Navbar>
-				</motion.div>
-			}
+			<motion.div
+				initial={item.hidden}
+				animate={(children || holded) ? item.showen : item.hidden}
+			>
+				<Navbar>
+					<ItemsBtn children={children} holded={holded}/>
+				</Navbar>
+			</motion.div>
 		</motion.div>
 	)
 }
