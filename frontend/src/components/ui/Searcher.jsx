@@ -1,10 +1,11 @@
 import React from 'react'
 import SearchSvg from '../../assets/search.svg?react'
 import AddBoxesSvg from '../../assets/addBoxes.svg?react'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion'
 
 export const Searcher = ({searchValue, setSearchValue}) => {
+	const navigate = useNavigate();
 	const { search } = useParams();
 	const isLocal = search === 'local';
 	const placeholder = search ? `Search ${search}` : 'Not available for search';
@@ -28,7 +29,7 @@ export const Searcher = ({searchValue, setSearchValue}) => {
 					transition={{ease: 'backOut'}}
 					whileTap={{scale: .97}}
 
-					onClick={e => {}}>
+					onClick={e => navigate('add')}>
 						<AddBoxesSvg/>
 				</motion.div>}
 		</motion.div>

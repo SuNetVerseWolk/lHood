@@ -7,6 +7,7 @@ import Menu from './pages/Menu';
 import Person from './pages/Person';
 import Search from './pages/Search'
 import { isDeviceType } from './services/checkDeviceType';
+import Add from './pages/Add';
 
 const App = () => {
 	const [searchValue, setSearchValue] = useState('');
@@ -22,6 +23,7 @@ const App = () => {
 					<Route path='get'>
 						<Route path=':search' element={<Search searchValue={searchValue} setSearchValue={setSearchValue} clearSearchValue={clearSearchValue} />} />
 						<Route path='people/:id' element={<Person />} />
+						<Route path='local/:param' element={<Add />} />
 					</Route>
 					<Route path='menu' element={<Menu />} />
 				</Route>

@@ -2,7 +2,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import ItemMenuSvg from '../assets/itemMenu.svg?react'
 
-const ItemsBtn = ({children, holded}) => {
+const ItemsBtn = ({children}) => {
 	const variants = {
 		initial: {
 			scaleX: 0,

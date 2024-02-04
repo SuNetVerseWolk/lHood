@@ -84,7 +84,6 @@
 		gap: var(--sPadding);
 
 		#searcher {
-			width: auto;
 			border-radius: .7rem 0 0 .7rem;
 		}
 	}
