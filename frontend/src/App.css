@@ -139,3 +139,143 @@
 		}
 	}
 }
+main:has(#subject) {
+	padding: 0;
+}
+#subject {
+	position: relative;
+	overflow-y: scroll;
+
+	> svg {
+		width: 10vw;
+		position: absolute;
+		top: .5svh;
+		right: 2.5vw;
+		stroke: #fff;
+		padding: calc(var(--padding) - var(--sPadding));
+		border-radius: var(--padding);
+		background-color: var(--itemBg);
+	}
+
+	> img {
+		width: 100%;
+		height: 30svh;
+		background: #fff url('/addImage.png') 50% 50% no-repeat;
+		background-size: 50%;
+	}
+	#imgLoader {
+		display: none;
+	}
+
+	.container {
+		translate: 0 -7%;
+
+		.navContainer {
+			> h2 {
+				text-align: center;
+				margin-block: var(--lPadding);
+			}
+
+			&#learn {
+				.card {
+					height: 57svh;
+				}
+			}
+			&#tips {
+				.card {
+					height: 30svh;
+
+					#header {
+						font-size: 1.2rem;
+					}
+					#description {
+						font-size: 1rem;
+					}
+					#example {
+						font-size: .9rem;
+					}
+				}
+			}
+
+			.navbar {
+				overflow: overlay;
+				scroll-snap-type: x mandatory;
+				padding-inline: var(--lPadding);
+				gap: var(--padding);
+
+				.card {
+					display: flex;
+					flex-flow: column nowrap;
+					min-width: 90vw;
+					max-width: 90vw;
+					padding: var(--lPadding);
+					border-radius: var(--padding);
+					background-color: var(--itemBg);
+					scroll-snap-align: center;
+					scroll-snap-stop: always;
+
+					& input, select, textarea {
+						background-color: transparent;
+					}
+					& hr {
+						border: 1px solid #ffffff15;
+						margin-block: var(--padding);
+					}
+					> p {
+						width: 100%;
+						min-height: fit-content;
+						resize: none;
+						
+						> span {
+							background-color: transparent !important;
+							color: #fff !important;
+						}
+					}
+
+					#header {
+						font-size: 1.5rem;
+						margin-bottom: var(--lPadding);
+					}
+					#value {
+						display: flex;
+
+						> select {
+							text-align: end;
+						}
+						> select:disabled {
+							/*inset: unset;*/
+						}
+
+						#type {
+							margin-left: auto;
+						}
+					}
+					#description {
+						font-size: 1.2rem;
+						margin-bottom: var(--lPadding);
+					}
+					#example {
+						font-size: 1rem;
+					}
+				}
+			}
+		}
+	}
+	#X {
+		padding: var(--lPadding);
+
+		> h2 {
+			color: var(--accentColor);
+			text-align: center;
+			margin-bottom: var(--lPadding);
+		}
+
+		.navbar {
+			margin-bottom: var(--lPadding);
+
+			> span {
+				background-color: var(--itemBg);
+			}
+		}
+	}
+}
