@@ -1,17 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Navbar from '../layouts/Navbar'
-import Item from '../components/Item'
 import { useParams } from 'react-router-dom'
 import EditSvg from '../assets/edit.svg?react'
 import AcceptSvg from '../assets/accept.svg?react'
+import Card from '../layouts/Card'
+import { motion } from 'framer-motion'
 
-const Subject = () => {
+const Subject = ({userData}) => {
 	const { param } = useParams();
-	const [data, setData] = useState({});
-	const [isEditMode, setIsEditMode] = useState(param === 'subject' ? true : false);
+	const [isEditing, setIsEditing] = useState(param === 'new');
 	const imgLoader = useRef();
 	const levels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 	const types = ['noun', 'verb', 'adjective', 'phrase', 'idiom', 'expression', 'adverb'];
+	const [viewData, setViewData] = useState(param === 'new' ? {} : userData.data.local[param]);
 
 	useEffect(e => {
 		const addFile = e => {
@@ -20,7 +21,7 @@ const Subject = () => {
 
 			fileReader.readAsDataURL(file);
 			fileReader.onload = function() {
-				setData({img: fileReader.result})
+				setViewData({img: fileReader.result})
 			}
 		};
 
@@ -28,55 +29,63 @@ const Subject = () => {
 		return imgLoader.current.removeEventListener('change', e => addFile(e));
 	}, []);
 
+	useEffect(e => {
+		console.log(viewData);
+	}, [viewData]);
+
 	return (
 		<div id='subject'>
-			{isEditMode ? <AcceptSvg onClick={e => setIsEditMode(false)} /> : <EditSvg onClick={e => setIsEditMode(true)} />}
+			<motion.div id='edit' animate={{scale: 1}} initial={{scale: .5}} whileTap={{scale: .97}}>
+				{isEditing ? <AcceptSvg onClick={e => setIsEditing(false)} /> : <EditSvg onClick={e => setIsEditing(true)} />}
+			</motion.div>
 			<img
-				src={data?.img}
-				onClick={e => isEditMode && imgLoader.current.click()}
+				src={viewData?.img}
+				onClick={e => isEditing && imgLoader.current.click()}
 			/>
 			<input ref={imgLoader} type="file" name="imgLoader" id="imgLoader" />
 			<div className='container'>
 				<div id='learn' className="navContainer">
 					<Navbar>
-						<div className="card" id='make'>
-							<input type="text" name="header" id="header" placeholder='Word' disabled={!isEditMode} />
-							<div id='value'>
-								<span id='IPA'>/ wɜrd /</span>
-								<select name="level" id="level" disabled={!isEditMode}>
-									{levels.map(level => {
-										return <option key={level}>{level}</option>;
-									})}
-								</select>
-								<select name="type" id="type" disabled={!isEditMode}>
-									{types.map(type => {
-										return <option key={type}>{type}</option>;
-									})}
-								</select>
-							</div>
-							<hr />
-							<p id='description' contentEditable={isEditMode}>Description</p>
-							<p id='example' contentEditable={isEditMode}>Example</p>
-						</div>
+						{isEditing &&
+							<Card
+								types={types}
+								levels={levels}
+								isEditing={isEditing}
+								setViewData={setViewData}
+							/>
+						}
+						{
+							viewData?.values?.map(value => {
+								return (
+									<Card
+										types={types}
+										levels={levels}
+										isEditing={isEditing}
+										setViewData={setViewData}
+										data={value}
+										key={value.value}
+									/>
+								)
+							})
+						}
 					</Navbar>
 				</div>
-				<div id='tips' className='navContainer'>
-					<h2>Pro Tips</h2>
-					<Navbar>
-						<div className="card">
-							<input type="text" name="header" id="header" placeholder='Word' disabled={!isEditMode} />
-							<p id='description' contentEditable={isEditMode}>Description</p>
-							<p id='example' contentEditable={isEditMode}>Example</p>
-						</div>
-					</Navbar>
-				</div>
+				{
+					isEditing &&
+					<div id='tips' className='navContainer'>
+						<h2>Pro Tips</h2>
+						<Navbar>
+							{isEditing && <Card isEditing={isEditing} />}
+						</Navbar>
+					</div>
+				}
 			</div>
 			<div id='X'>
 				<h2>Compare with</h2>
 				<Navbar justifyContent={'space-evenly'}>
 					<span>Word</span> <span>Word</span> <span>Word</span>
 				</Navbar>
-				<p id='description' contentEditable={isEditMode}>Description</p>
+				<p id='description' contentEditable={isEditing}>Description</p>
 			</div>
 		</div>
 	)

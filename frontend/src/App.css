@@ -146,15 +146,22 @@ main:has(#subject) {
 	position: relative;
 	overflow-y: scroll;
 
-	> svg {
-		width: 10vw;
+	> *:not(img, #edit) {
+		translate: 0 -5svh;
+	}
+
+	#edit {
 		position: absolute;
 		top: .5svh;
 		right: 2.5vw;
-		stroke: #fff;
-		padding: calc(var(--padding) - var(--sPadding));
-		border-radius: var(--padding);
-		background-color: var(--itemBg);
+		
+		> svg {
+			width: 10vw;
+			stroke: #fff;
+			padding: var(--padding);
+			border-radius: var(--padding);
+			background-color: var(--itemBg);
+		}
 	}
 
 	> img {
@@ -168,8 +175,6 @@ main:has(#subject) {
 	}
 
 	.container {
-		translate: 0 -7%;
-
 		.navContainer {
 			> h2 {
 				text-align: center;
@@ -213,6 +218,35 @@ main:has(#subject) {
 					background-color: var(--itemBg);
 					scroll-snap-align: center;
 					scroll-snap-stop: always;
+					position: relative;
+
+					&:has(#rightArrow) {
+						margin-right: var(--padding);
+					}
+
+					#rightArrow {
+						position: absolute;
+						top: 52.5%;
+						right: -2%;
+						rotate: -45deg;
+						border-radius: var(--sPadding) var(--lPadding);
+						background-color: var(--bgBlack);
+
+						> svg {
+							height: 10vw;
+							padding: var(--padding);
+							rotate: 45deg;
+
+							stroke: #fff;
+						}
+					}
+
+					> select {
+						position: absolute;
+						top: 0;
+						right: 0;
+						margin: var(--lPadding);
+					}
 
 					& input, select, textarea {
 						background-color: transparent;
@@ -232,11 +266,11 @@ main:has(#subject) {
 						}
 					}
 
-					#header {
+					> input#value {
 						font-size: 1.5rem;
 						margin-bottom: var(--lPadding);
 					}
-					#value {
+					> div#value {
 						display: flex;
 
 						> select {

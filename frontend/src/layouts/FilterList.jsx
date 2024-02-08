@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import data from '../data/user'
+import { people } from '../data/user'
 import Item from '../components/Item'
 import Empty from './Empty'
 import GlobalSearchItems from './globalSearchItems'
 import { getPeople } from '../services/dataMenagement'
 
-const FilterList = ({searchValue, clearSearchValue}) => {
+const FilterList = ({searchValue, clearSearchValue, userData}) => {
 	const { search } = useParams();
 	const [sortedUserData, setSortedUserData] = useState([]);
 
@@ -16,14 +16,14 @@ const FilterList = ({searchValue, clearSearchValue}) => {
 	useEffect(e => {
 		let items;
 		if (search === 'people') {
-			const people = getPeople(data.people, data.user);
+			const friends = getPeople(people, userData.data);
 			if (mark === '#')
-				items = people?.filter(item => item.id?.toLowerCase().includes(searchValue.slice(1)));
+				items = friends?.filter(item => item.id?.toLowerCase().includes(searchValue.slice(1)));
 			else
-				items = people?.filter(item => item.name?.toLowerCase().includes(searchValue));
+				items = friends?.filter(item => item.name?.toLowerCase().includes(searchValue));
 		}
 		else
-			items = data.user[search]?.filter(item => item.name?.toLowerCase().includes(searchValue));
+			items = userData.data.local.filter(item => item.name?.toLowerCase().includes(searchValue) && item.state === search);
 
 		setSortedUserData(items?.map((item, i) => {
 			const {name, img, id} = item || {}
@@ -35,7 +35,7 @@ const FilterList = ({searchValue, clearSearchValue}) => {
 
 	return (
 		<div id='filterList'>
-			<GlobalSearchItems search={search} mark={mark} id={id} clearSearchValue={clearSearchValue} />
+			<GlobalSearchItems search={search} mark={mark} id={id} clearSearchValue={clearSearchValue} userData={userData} />
 			{ sortedUserData?.length ? sortedUserData : <Empty /> }
 		</div>
 	)

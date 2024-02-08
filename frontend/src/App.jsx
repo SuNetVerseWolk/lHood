@@ -8,8 +8,10 @@ import Person from './pages/Person';
 import Search from './pages/Search'
 import { isDeviceType } from './services/checkDeviceType';
 import Subject from './pages/Subject';
+import useUserDataManager from './data/user';
 
 const App = () => {
+	const userData = useUserDataManager();
 	const [searchValue, setSearchValue] = useState('');
 	const clearSearchValue = e => setSearchValue('');
 
@@ -21,7 +23,7 @@ const App = () => {
 					<Route path='' element={<Recall />} />
 					<Route path='recall' element={<Recall />} />
 					<Route path='get'>
-						<Route path=':search' element={<Search searchValue={searchValue} setSearchValue={setSearchValue} clearSearchValue={clearSearchValue} />} />
+						<Route path=':search' element={<Search searchValue={searchValue} setSearchValue={setSearchValue} clearSearchValue={clearSearchValue} userData={userData} />} />
 						<Route path='people/:id' element={<Person />} />
 						<Route path='local/:param' element={<Subject />} />
 					</Route>
