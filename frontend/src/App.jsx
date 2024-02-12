@@ -23,9 +23,19 @@ const App = () => {
 					<Route path='' element={<Recall />} />
 					<Route path='recall' element={<Recall />} />
 					<Route path='get'>
-						<Route path=':search' element={<Search searchValue={searchValue} setSearchValue={setSearchValue} clearSearchValue={clearSearchValue} userData={userData} />} />
+						<Route
+							path=':search'
+							element={
+								<Search
+									searchValue={searchValue}
+									setSearchValue={setSearchValue}
+									clearSearchValue={clearSearchValue}
+									userData={userData}
+								/>
+							}
+						/>
 						<Route path='people/:id' element={<Person />} />
-						<Route path='local/:param' element={<Subject />} />
+						<Route path='local/:param' element={<Subject userData={userData}/>} />
 					</Route>
 					<Route path='menu' element={<Menu />} />
 				</Route>

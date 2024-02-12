@@ -29,7 +29,7 @@ export const Searcher = ({searchValue, setSearchValue}) => {
 					transition={{ease: 'backOut'}}
 					whileTap={{scale: .97}}
 
-					onClick={e => navigate('new')}>
+					onClick={e => navigate(import.meta.env.VITE_NEWDATAKEY)}>
 						<AddBoxesSvg/>
 				</motion.div>}
 		</motion.div>

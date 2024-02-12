@@ -1,37 +1,67 @@
-import React, { useState } from 'react';
-import selectAllText from '../events/selectAllText';
-import RightArrow from '../assets/rightArrow.svg?react';
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion'
+import RightArrowSvg from '../assets/rightArrow.svg?react';
+import ClearTSvg from "../assets/clearText.svg?react";
+import CrossSvg from '../assets/cross.svg?react';
 
-const Card = ({isEditing, levels, types, data, setViewData}) => {
-	const defaultData = {level: 'A1', type: 'noun'};
-	const defaultDescription = 'Write a description...';
-	const defaultExample = 'Write an example...';
-	const essentialKeys = ['value', 'IPA', 'description', 'example'];
-	
-	data = data ? data : defaultData;
+const Card = ({index, isEditable, make, levels, types, data = JSON.parse(import.meta.env.VITE_DefaultCardValue), setEditableData, setNewCardData}) => {
 	const [viewCardData, setViewCardData] = useState(data);
-	const isNew = !Object.keys(data).includes(...essentialKeys);
+	const isNew = !Object.keys(data).includes('value', 'IPA');
 
-	const make = e => setViewData(current => {
-		let values = current?.values || [];
-		values.push({...viewCardData});
+	const inputViewCardData = e => {
+		const el = e.target;
 
-		setViewCardData(defaultData);
+		if (el.localName === 'textarea') {
+			el.style.height = 'auto';
+			el.style.height = `${el.scrollHeight}px`;
+		}
 
-		return {...current, values: values};
-	});
-	const setViewCardDataByValue = e => setViewCardData({...viewCardData, [e.target.id]: e.target.value});
-	const setViewCardDataByTextContent = e => setViewCardData({...viewCardData, [e.target.id]: e.target.textContent});
+		setViewCardData(viewCardData => ({...viewCardData, [el.id]: el.value}));
+	}
+
+	const create = e => {
+		make();
+		setViewCardData(JSON.parse(import.meta.env.VITE_DefaultCardValue));
+	}
+
+	const remove = e => {
+		setEditableData(editableViewData => {
+			const upData = editableViewData.filter((data, i) => i != index);
+			console.log(upData);
+			return upData;
+		});
+	}
+
+	useEffect(e => {
+		if (isNew && setNewCardData) {
+			setNewCardData(newCardData => ({...newCardData, ...viewCardData}));
+			return;
+		}
+		setEditableData && setEditableData(editableData => {
+			const upData = [...editableData];
+			upData[index] = {...upData[index], ...viewCardData};
+
+			return upData;
+		});
+	}, [viewCardData]);
+
+	const clearAllText = e => {
+		setViewCardData(viewCardData => ({...viewCardData, value: '', IPA: '', description: '', example: '', ...JSON.parse(import.meta.env.VITE_DefaultCardValue)}));
+	}
 
 	return (
-		<div className="card">
+		<motion.div className="card" initial={{scale: .8}} animate={{scale: 1}}>
 			{
-				isNew &&
-				<div id="rightArrow" onClick={make}><RightArrow /></div>
+				isNew ?
+				<>
+					<div className='ridBtn'><ClearTSvg onClick={clearAllText} /></div>
+					<div id="rightArrow" onClick={create}><RightArrowSvg /></div>
+				</>
+				: isEditable && <div id="cross" className='ridBtn' onClick={remove}><CrossSvg /></div>
 			}
 			{
 				levels &&
-				<select name="level" id="level" disabled={!isEditing} defaultValue={viewCardData?.level} onChange={setViewCardDataByValue}>
+				<select name="level" id="level" disabled={!isEditable} defaultValue={viewCardData?.level} onChange={inputViewCardData}>
 					{levels.map(level => {
 						return <option key={level}>{level}</option>;
 					})}
@@ -42,9 +72,9 @@ const Card = ({isEditing, levels, types, data, setViewData}) => {
 				type="text"
 				name="value"
 				placeholder='Value'
-				disabled={!isEditing}
+				disabled={!isEditable}
 				value={viewCardData.value || ''}
-				onInput={setViewCardDataByValue}
+				onInput={inputViewCardData}
 			/>
 			{
 				types &&
@@ -54,11 +84,12 @@ const Card = ({isEditing, levels, types, data, setViewData}) => {
 							id="IPA"
 							name="IPA"
 							type="text"
+							disabled={!isEditable}
 							placeholder='transcription'
 							value={viewCardData.IPA || ''}
-							onInput={setViewCardDataByValue}
+							onInput={inputViewCardData}
 						/>
-						<select name="type" id="type" disabled={!isEditing} defaultValue={viewCardData?.type} onChange={setViewCardDataByValue}>
+						<select name="type" id="type" disabled={!isEditable} defaultValue={viewCardData?.type} onChange={inputViewCardData}>
 							{types.map(type => {
 								return <option key={type}>{type}</option>;
 							})}
@@ -67,23 +98,23 @@ const Card = ({isEditing, levels, types, data, setViewData}) => {
 					<hr />
 				</>
 			}
-			<p
-				id='description'
-				contentEditable={isEditing}
-				onClick={e => selectAllText(e, defaultDescription)}
-				onBlur={setViewCardDataByTextContent}
+			<textarea
+				id="description"
+				disabled={!isEditable}
+				onInput={inputViewCardData}
+				placeholder='Write a description...'
 			>
-				{viewCardData?.description || defaultDescription}
-			</p>
-			<p
-				id='example'
-				contentEditable={isEditing}
-				onClick={e => selectAllText(e, defaultExample)}
-				onBlur={setViewCardDataByTextContent}
+				{viewCardData?.description}
+			</textarea>
+			<textarea
+				id="example"
+				disabled={!isEditable}
+				onInput={inputViewCardData}
+				placeholder='Write an example...'
 			>
-				{viewCardData?.example || defaultExample}
-			</p>
-		</div>
+				{viewCardData?.example}
+			</textarea>
+		</motion.div>
 	)
 }
 

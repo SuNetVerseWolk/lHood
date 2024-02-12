@@ -1,69 +1,151 @@
 import React, { useEffect, useRef, useState } from 'react'
-import Navbar from '../layouts/Navbar'
 import { useParams } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import Navbar from '../layouts/Navbar'
+import Card from '../layouts/Card'
+import getFileResult from '../utils/getFileResult'
 import EditSvg from '../assets/edit.svg?react'
 import AcceptSvg from '../assets/accept.svg?react'
-import Card from '../layouts/Card'
-import { motion } from 'framer-motion'
+import CancelSvg from '../assets/cross.svg?react'
 
 const Subject = ({userData}) => {
-	const { param } = useParams();
-	const [isEditing, setIsEditing] = useState(param === 'new');
-	const imgLoader = useRef();
 	const levels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 	const types = ['noun', 'verb', 'adjective', 'phrase', 'idiom', 'expression', 'adverb'];
-	const [viewData, setViewData] = useState(param === 'new' ? {} : userData.data.local[param]);
+
+	const imgLoader = useRef();
+	const mainCardContainer = useRef();
+	const { param } = useParams();
+	const [isEditable, setIsEditable] = useState(param === import.meta.env.VITE_NEWDATAKEY);
+	const [viewData, setViewData] = useState(param === import.meta.env.VITE_NEWDATAKEY ? [] : userData.data.rows.find(row => row.find(card => card.value === param)));
+	const [currentCardId, setCurrentCardId] = useState(0);
+	const [editableViewData, setEditableViewData] = useState(viewData);
+	const [newCardData, setNewCardData] = useState({});
+	const [newTipData, setNewTipData] = useState({});
+
+	const setFile = async e => {
+		const [file, img] = await getFileResult(e);
+
+		if (currentCardId === editableViewData.length) {
+			setNewCardData(prev => ({ ...prev, file, img }));
+			return;
+		}
+ 
+		setEditableViewData(editableViewData => {
+			const data = [...editableViewData]
+			data[currentCardId] = {...data[currentCardId], file, img}
+
+			return data;
+		});
+	}
+	const getCurrentCardId = e => {
+		const container = mainCardContainer.current;
+		const cardWidth = container.querySelector('.card').offsetWidth;
+		let cardId = Math.round((container.scrollLeft + cardWidth) / cardWidth);
+		cardId = isEditable ? cardId - 2 : cardId - 1;
+		cardId = cardId < 0 ? editableViewData.length : cardId;
+
+		setCurrentCardId(cardId);
+	};
 
 	useEffect(e => {
-		const addFile = e => {
-			const fileReader = new FileReader();
-			const file = e.target.files[0];
+		const container = mainCardContainer.current;
+		container.addEventListener('scroll', getCurrentCardId);
+		imgLoader.current.addEventListener('change', setFile);
 
-			fileReader.readAsDataURL(file);
-			fileReader.onload = function() {
-				setViewData({img: fileReader.result})
+		return e => {
+			container?.removeEventListener('scroll', getCurrentCardId);
+			imgLoader.current.removeEventListener('change', setFile);
+		}
+	}, [isEditable, currentCardId, editableViewData?.length]);
+
+	useEffect(e => {
+		console.log('ViewData', viewData);
+		console.log("Current's " + currentCardId + " => ", editableViewData[currentCardId]);
+		console.log('EditableData', editableViewData);
+		console.log('ViewData', viewData);
+		console.log('NewCardData', newCardData);
+	}, [currentCardId, isEditable, editableViewData, newCardData]);
+
+	const ecceptEdited = e => {
+		setViewData(editableViewData);
+		setIsEditable(false);
+	}
+	const cancelEdited = e => {
+		setEditableViewData(viewData);
+		setIsEditable(false);
+	}
+	const makeMain = e => {
+		setEditableViewData(editableViewData => {
+			const upData = [...editableViewData];
+			upData[upData.length] = {id: crypto.randomUUID(), ...newCardData};
+
+			setNewCardData({});
+			setCurrentCardId(upData.length);
+
+			return upData;
+		})
+	}
+	const make = e => {
+		setViewData(viewData => {
+			const upData = [...viewData];
+			if (currentCardId ) {
+				
 			}
-		};
+			upData.tips[viewData.length] = newTipData;
+			setNewCardData({});
+			//getCurrentCardId(0);
+			//console.count('makeMain', upData);
 
-		imgLoader.current.addEventListener('change', e => addFile(e));
-		return imgLoader.current.removeEventListener('change', e => addFile(e));
-	}, []);
+			return upData;
+		});
+	}
 
-	useEffect(e => {
-		console.log(viewData);
-	}, [viewData]);
+	const img = currentCardId === editableViewData.length ? newCardData?.img : editableViewData[currentCardId]?.img;
 
 	return (
 		<div id='subject'>
-			<motion.div id='edit' animate={{scale: 1}} initial={{scale: .5}} whileTap={{scale: .97}}>
-				{isEditing ? <AcceptSvg onClick={e => setIsEditing(false)} /> : <EditSvg onClick={e => setIsEditing(true)} />}
-			</motion.div>
+			<div id='edit'>
+				{isEditable ?
+					<>
+						<motion.div animate={{scale: 1}} initial={{scale: .5}} whileTap={{scale: .97}}><CancelSvg id="cancelSvg" onClick={cancelEdited} /></motion.div>
+						<motion.div animate={{scale: 1}} initial={{scale: .5}} whileTap={{scale: .97}}><AcceptSvg onClick={ecceptEdited} /></motion.div>
+					</>
+					: <motion.div animate={{scale: 1}} initial={{scale: .5}} whileTap={{scale: .97}}><EditSvg onClick={e => setIsEditable(true)} /></motion.div>}
+			</div>
 			<img
-				src={viewData?.img}
-				onClick={e => isEditing && imgLoader.current.click()}
+				src={img}
+				onClick={e => isEditable && imgLoader.current.click()}
 			/>
 			<input ref={imgLoader} type="file" name="imgLoader" id="imgLoader" />
 			<div className='container'>
 				<div id='learn' className="navContainer">
-					<Navbar>
-						{isEditing &&
+					<Navbar link={mainCardContainer}>
+						{
+							isEditable &&
 							<Card
+								id={editableViewData.length}
+								key={editableViewData.length}
+								make={makeMain}
 								types={types}
 								levels={levels}
-								isEditing={isEditing}
+								isEditable={isEditable}
 								setViewData={setViewData}
+								setNewCardData={setNewCardData}
+								setEditableData={setEditableViewData}
 							/>
 						}
 						{
-							viewData?.values?.map(value => {
+							editableViewData.map((value, i) => {
 								return (
 									<Card
+										index={i}
+										key={value.id}
+										data={value}
 										types={types}
 										levels={levels}
-										isEditing={isEditing}
-										setViewData={setViewData}
-										data={value}
-										key={value.value}
+										isEditable={isEditable}
+										setCurrentCardId={currentCardId}
+										setEditableData={setEditableViewData}
 									/>
 								)
 							})
@@ -71,11 +153,18 @@ const Subject = ({userData}) => {
 					</Navbar>
 				</div>
 				{
-					isEditing &&
+					editableViewData[currentCardId]?.tips?.length &&
 					<div id='tips' className='navContainer'>
 						<h2>Pro Tips</h2>
 						<Navbar>
-							{isEditing && <Card isEditing={isEditing} />}
+							{isEditable && <Card isEditable={isEditable} />}
+							{
+								editableViewData[currentCardId]?.tips.map(tip => {
+									return (
+										<Card data={tip} isEditable={isEditable} key={tip.value} />
+									)
+								})
+							}
 						</Navbar>
 					</div>
 				}
@@ -85,7 +174,7 @@ const Subject = ({userData}) => {
 				<Navbar justifyContent={'space-evenly'}>
 					<span>Word</span> <span>Word</span> <span>Word</span>
 				</Navbar>
-				<p id='description' contentEditable={isEditing}>Description</p>
+				<p id='description' contentEditable={isEditable}>Description</p>
 			</div>
 		</div>
 	)

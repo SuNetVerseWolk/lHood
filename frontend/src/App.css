@@ -147,20 +147,31 @@ main:has(#subject) {
 	overflow-y: scroll;
 
 	> *:not(img, #edit) {
-		translate: 0 -5svh;
+		translate: 0 calc(-5svh - 10vw);
 	}
 
 	#edit {
+		display: flex;
+		flex-flow: column nowrap;
 		position: absolute;
+		gap: var(--sPadding);
+
 		top: .5svh;
 		right: 2.5vw;
+
+		width: 10vw;
 		
-		> svg {
-			width: 10vw;
+		&	 svg {
+			width: inherit;
 			stroke: #fff;
 			padding: var(--padding);
 			border-radius: var(--padding);
 			background-color: var(--itemBg);
+		}
+
+		#cancelSvg {
+			fill: #fff;
+			padding: 0;
 		}
 	}
 
@@ -203,94 +214,112 @@ main:has(#subject) {
 			}
 
 			.navbar {
-				overflow: overlay;
-				scroll-snap-type: x mandatory;
+				overflow-x: overlay;
 				padding-inline: var(--lPadding);
 				gap: var(--padding);
+				scroll-snap-type: x mandatory;
+				scroll-snap-align: start;
+				padding-top: 10vw;
 
-				.card {
+				&::-webkit-scrollbar {
+					width: 0;
+				}
+			}
+
+			.card {
+				display: flex;
+				flex-flow: column nowrap;
+				min-width: 90vw;
+				max-width: 90vw;
+				padding: var(--lPadding);
+				border-radius: var(--padding);
+				background-color: var(--itemBg);
+				scroll-snap-align: center;
+				scroll-snap-stop: always;
+				position: relative;
+
+				&:has(#rightArrow) {
+					margin-right: var(--padding);
+				}
+
+				.ridBtn, #rightArrow {
+					position: absolute;
+					background-color: var(--bgBlack);
+
+					> svg {
+						height: 10vw;
+					}
+				}
+				.ridBtn {
+					right: 50%;
+					top: 0;
+					translate: 50% -30%;
+					border-radius: var(--lPadding);
+
+					> svg {
+						fill: #fff;
+					}
+					&#cross {
+						stroke: #fff;
+					}
+				}
+				#rightArrow {
+					top: 52.5%;
+					right: -2%;
+					rotate: -45deg;
+					border-radius: var(--sPadding) var(--lPadding);
+
+					> svg {
+						padding: var(--padding);
+						rotate: 45deg;
+
+						stroke: #fff;
+					}
+				}
+
+				> select {
+					position: absolute;
+					top: 0;
+					right: 0;
+					margin: var(--lPadding);
+				}
+
+				& input, select, textarea {
+					background-color: transparent;
+				}
+				& hr {
+					border: 1px solid #ffffff15;
+					margin-block: var(--padding);
+				}
+				> textarea {
+					width: 100%;
+					resize: none;
+				}
+
+				> input#value {
+					font-size: 1.5rem;
+					margin-bottom: var(--lPadding);
+				}
+				> div#value {
 					display: flex;
-					flex-flow: column nowrap;
-					min-width: 90vw;
-					max-width: 90vw;
-					padding: var(--lPadding);
-					border-radius: var(--padding);
-					background-color: var(--itemBg);
-					scroll-snap-align: center;
-					scroll-snap-stop: always;
-					position: relative;
-
-					&:has(#rightArrow) {
-						margin-right: var(--padding);
-					}
-
-					#rightArrow {
-						position: absolute;
-						top: 52.5%;
-						right: -2%;
-						rotate: -45deg;
-						border-radius: var(--sPadding) var(--lPadding);
-						background-color: var(--bgBlack);
-
-						> svg {
-							height: 10vw;
-							padding: var(--padding);
-							rotate: 45deg;
-
-							stroke: #fff;
-						}
-					}
 
 					> select {
-						position: absolute;
-						top: 0;
-						right: 0;
-						margin: var(--lPadding);
+						text-align: end;
+					}
+					> select:disabled {
+						/*inset: unset;*/
 					}
 
-					& input, select, textarea {
-						background-color: transparent;
+					#type {
+						margin-left: auto;
 					}
-					& hr {
-						border: 1px solid #ffffff15;
-						margin-block: var(--padding);
-					}
-					> p {
-						width: 100%;
-						min-height: fit-content;
-						resize: none;
-						
-						> span {
-							background-color: transparent !important;
-							color: #fff !important;
-						}
-					}
-
-					> input#value {
-						font-size: 1.5rem;
-						margin-bottom: var(--lPadding);
-					}
-					> div#value {
-						display: flex;
-
-						> select {
-							text-align: end;
-						}
-						> select:disabled {
-							/*inset: unset;*/
-						}
-
-						#type {
-							margin-left: auto;
-						}
-					}
-					#description {
-						font-size: 1.2rem;
-						margin-bottom: var(--lPadding);
-					}
-					#example {
-						font-size: 1rem;
-					}
+				}
+				#description {
+					font-size: 1.2rem;
+				}
+				#example {
+					font-size: 1rem;
+					width: 95%;
 				}
 			}
 		}

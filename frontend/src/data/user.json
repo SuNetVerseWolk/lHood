@@ -1,0 +1,25 @@
+{
+	"name": "Wolk",
+	"avatar": "src",
+	"people" : [],
+	"rows": [
+		[
+			{
+				"img": "src",
+				"value": "Home",
+				"level": "A1",
+				"type": "noun",
+				"IPA": "\\ həʊm \\",
+				"description": "The place where one lives",
+				"example": "What is your home address?",
+				"tips": [
+					{
+						"value": "The place where one lives",
+						"description": "The place where one lives",
+						"example":"What is your home address?"
+					}
+				]
+			}
+		]
+	]
+}

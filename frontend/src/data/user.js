@@ -25,15 +25,81 @@ export const people = [
 	{id: 'b', name: 'Mis. Harper', img: avatar}
 ]
 
-const useUserDataManager = (data = {img: avatar, people: [], local: []}) => {
+const userDefaultData = {
+	"name": "Wolk",
+	"avatar": avatar,
+	"people" : [],
+	"rows": [
+		[
+			{
+				id: crypto.randomUUID(),
+				"img": "src",
+				"value": "Home",
+				"level": "A1",
+				"type": "noun",
+				"IPA": "\\ həʊm \\",
+				"description": "The place where one lives",
+				"example": "What is your home address?",
+				"tips": [
+					{
+						"value": "The place where one lives",
+						"description": "The place where one lives",
+						"example":"What is your home address?"
+					},
+					{
+						"value": "The place where one is born",
+						"description": "The place where one is born",
+						"example":"Where was I born?"
+					}
+				]
+			},
+			{
+				id: crypto.randomUUID(),
+				"img": "src",
+				"value": "House",
+				"level": "A1",
+				"type": "noun",
+				"IPA": "\\ həʊm \\",
+				"description": "The place where one lives",
+				"example": "What is your home address?",
+				"tips": [
+					{
+						"value": "Building",
+						"description": "The place where one lives",
+						"example":"What is your home address?"
+					}
+				]
+			},
+			{
+				id: crypto.randomUUID(),
+				"img": "",
+				value: "Room",
+				level: "B2",
+				type: "noun",
+				IPA: "r ohm",
+				description: "A separate part of a house or building, such as the living room or bedroom.",
+				example: "Which room do you sleep in?",
+				tips: [
+					{
+						"value": "Living Room",
+						"description": "The main room for eating and relaxing.",
+						example: "I like to watch TV in the living room."
+					}
+				]
+			}
+		]
+	]
+};
+
+const useUserDataManager = (data = userDefaultData) => {
 	const [userData, setUserData] = useState(data);
 
-	const addToLocal = (item) => {
-		setUserData({...userData, local: [...userData.local, item]});
+	const addToSubjects = (item) => {
+		setUserData({...userData, Subjects: [...userData.Subjects, item]});
 	};
 
-	const removeFromLocal = (index) => {
-		setUserData({...userData, local: userData.local.splice(index, 1)});
+	const removeFromSubjects = (index) => {
+		setUserData({...userData, Subjects: userData.Subjects.splice(index, 1)});
 	};
 
 	const addPeople = (item) => {
@@ -45,8 +111,8 @@ const useUserDataManager = (data = {img: avatar, people: [], local: []}) => {
 	};
 
 	return {
-		addToLocal,
-		removeFromLocal,
+		addToSubjects,
+		removeFromSubjects,
 		addPeople,
 		removeFromPeople,
 		data: userData,

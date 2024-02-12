@@ -16,14 +16,14 @@ const FilterList = ({searchValue, clearSearchValue, userData}) => {
 	useEffect(e => {
 		let items;
 		if (search === 'people') {
-			const friends = getPeople(people, userData.data);
+			const friends = getPeople(people, userData.data.people);
 			if (mark === '#')
 				items = friends?.filter(item => item.id?.toLowerCase().includes(searchValue.slice(1)));
 			else
 				items = friends?.filter(item => item.name?.toLowerCase().includes(searchValue));
 		}
 		else
-			items = userData.data.local.filter(item => item.name?.toLowerCase().includes(searchValue) && item.state === search);
+			items = userData.data.rows.filter(item => item.name?.toLowerCase().includes(searchValue) && item.state === search);
 
 		setSortedUserData(items?.map((item, i) => {
 			const {name, img, id} = item || {}
