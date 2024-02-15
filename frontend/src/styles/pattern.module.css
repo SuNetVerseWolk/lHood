@@ -1,0 +1,190 @@
+.pattern {
+	position: relative;
+	overflow-y: scroll;
+	height: 100%;
+
+	> *:not(img, :nth-child(1)) {
+		translate: 0 calc(-5svh - 10vw);
+	}
+
+	> :nth-child(1) {
+		display: flex;
+		flex-flow: column nowrap;
+		gap: var(--sPadding);
+		
+		position: absolute;
+		top: .5svh;
+		right: 2.5vw;
+		width: 10vw;
+
+		svg {
+			width: inherit;
+			stroke: #fff;
+			padding: var(--padding);
+			border-radius: var(--padding);
+			background-color: var(--itemBg);
+		}
+	}
+
+	> img {
+		display: block;
+		width: 100%;
+		height: 30svh;
+		background: #fff url('/addImage.png') 50% 50% no-repeat;
+		background-size: 50%;
+	}
+
+	> div {
+		> h2 {
+			text-align: center;
+			margin-block: var(--lPadding);
+		}
+
+		&#learn {
+			.card {
+				height: 57svh;
+			}
+		}
+		&#tips {
+			.card {
+				height: 30svh;
+
+				#header {
+					font-size: 1.2rem;
+				}
+				#description {
+					font-size: 1rem;
+				}
+				#example {
+					font-size: .9rem;
+				}
+			}
+		}
+
+		.navbar {
+			overflow-x: overlay;
+			padding-inline: var(--lPadding);
+			gap: var(--padding);
+			scroll-snap-type: x mandatory;
+			scroll-snap-align: start;
+			padding-top: 10vw;
+
+			&::-webkit-scrollbar {
+				width: 0;
+			}
+		}
+
+		.card {
+			display: flex;
+			flex-flow: column nowrap;
+			min-width: 90vw;
+			max-width: 90vw;
+			padding: var(--lPadding);
+			border-radius: var(--padding);
+			background-color: var(--itemBg);
+			scroll-snap-align: center;
+			scroll-snap-stop: always;
+			position: relative;
+
+			&:has(#rightArrow) {
+				margin-right: var(--padding);
+			}
+
+			.ridBtn, #rightArrow {
+				position: absolute;
+				background-color: var(--bgBlack);
+
+				> svg {
+					height: 10vw;
+				}
+			}
+			.ridBtn {
+				right: 50%;
+				top: 0;
+				translate: 50% -30%;
+				border-radius: var(--lPadding);
+
+				> svg {
+					fill: #fff;
+				}
+				&#cross {
+					stroke: #fff;
+				}
+			}
+			#rightArrow {
+				top: 52.5%;
+				right: -2%;
+				rotate: -45deg;
+				border-radius: var(--sPadding) var(--lPadding);
+
+				> svg {
+					padding: var(--padding);
+					rotate: 45deg;
+
+					stroke: #fff;
+				}
+			}
+
+			> select {
+				position: absolute;
+				top: 0;
+				right: 0;
+				margin: var(--lPadding);
+			}
+
+			input, select, textarea {
+				background-color: transparent;
+			}
+			> textarea {
+				width: 100%;
+				resize: none;
+			}
+			hr {
+				border: 1px solid #ffffff15;
+				margin-block: var(--padding);
+			}
+			> input#value {
+				font-size: 1.5rem;
+				margin-bottom: var(--lPadding);
+			}
+			> div#value {
+				display: flex;
+
+				> select {
+					text-align: end;
+				}
+				> select:disabled {
+					/*inset: unset;*/
+				}
+
+				#type {
+					margin-left: auto;
+				}
+			}
+			#description {
+				font-size: 1.2rem;
+			}
+			#example {
+				font-size: 1rem;
+				width: 95%;
+			}
+		}
+	}
+	#X {
+		padding: var(--lPadding);
+
+		> h2 {
+			color: var(--accentColor);
+			text-align: center;
+			margin-bottom: var(--lPadding);
+		}
+
+		.navbar {
+			margin-bottom: var(--lPadding);
+
+			> span {
+				background-color: var(--itemBg);
+			}
+		}
+	}
+}

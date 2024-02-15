@@ -7,8 +7,8 @@ import Menu from './pages/Menu';
 import Person from './pages/Person';
 import Search from './pages/Search'
 import { isDeviceType } from './services/checkDeviceType';
-import Subject from './pages/Subject';
 import useUserDataManager from './data/user';
+import Pattern from './pages/Pattern/Pattern';
 
 const App = () => {
 	const userData = useUserDataManager();
@@ -35,7 +35,7 @@ const App = () => {
 							}
 						/>
 						<Route path='people/:id' element={<Person />} />
-						<Route path='local/:param' element={<Subject userData={userData}/>} />
+						<Route path='local/:param' element={<Pattern userData={userData}/>} />
 					</Route>
 					<Route path='menu' element={<Menu />} />
 				</Route>

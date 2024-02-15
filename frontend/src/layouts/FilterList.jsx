@@ -23,7 +23,7 @@ const FilterList = ({searchValue, clearSearchValue, userData}) => {
 				items = friends?.filter(item => item.name?.toLowerCase().includes(searchValue));
 		}
 		else
-			items = userData.data.rows.filter(item => item.name?.toLowerCase().includes(searchValue) && item.state === search);
+			items = userData.data.patterns.filter(item => item.name?.toLowerCase().includes(searchValue) && item.state === search);
 
 		setSortedUserData(items?.map((item, i) => {
 			const {name, img, id} = item || {}

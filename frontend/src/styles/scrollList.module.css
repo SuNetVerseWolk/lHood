@@ -1,0 +1,17 @@
+.scrollList {
+	display: flex;
+	padding-inline: var(--lPadding);
+	gap: var(--padding);
+	scroll-snap-type: x mandatory;
+	scroll-snap-align: start;
+	padding-top: 10vw;
+	overflow-x: scroll;
+
+	&::-webkit-scrollbar {
+		width: 0;
+	}
+
+	&[data-type="card"] > div {
+		height: 57svh;
+	}
+}

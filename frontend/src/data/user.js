@@ -25,69 +25,75 @@ export const people = [
 	{id: 'b', name: 'Mis. Harper', img: avatar}
 ]
 
-const userDefaultData = {
+export const userDefaultData = {
 	"name": "Wolk",
 	"avatar": avatar,
 	"people" : [],
-	"rows": [
-		[
-			{
-				id: crypto.randomUUID(),
-				"img": "src",
-				"value": "Home",
-				"level": "A1",
-				"type": "noun",
-				"IPA": "\\ həʊm \\",
-				"description": "The place where one lives",
-				"example": "What is your home address?",
-				"tips": [
-					{
-						"value": "The place where one lives",
-						"description": "The place where one lives",
-						"example":"What is your home address?"
-					},
-					{
-						"value": "The place where one is born",
-						"description": "The place where one is born",
-						"example":"Where was I born?"
-					}
-				]
-			},
-			{
-				id: crypto.randomUUID(),
-				"img": "src",
-				"value": "House",
-				"level": "A1",
-				"type": "noun",
-				"IPA": "\\ həʊm \\",
-				"description": "The place where one lives",
-				"example": "What is your home address?",
-				"tips": [
-					{
-						"value": "Building",
-						"description": "The place where one lives",
-						"example":"What is your home address?"
-					}
-				]
-			},
-			{
-				id: crypto.randomUUID(),
-				"img": "",
-				value: "Room",
-				level: "B2",
-				type: "noun",
-				IPA: "r ohm",
-				description: "A separate part of a house or building, such as the living room or bedroom.",
-				example: "Which room do you sleep in?",
-				tips: [
-					{
-						"value": "Living Room",
-						"description": "The main room for eating and relaxing.",
-						example: "I like to watch TV in the living room."
-					}
-				]
-			}
-		]
+	patterns: [
+		{
+			cardsValues : ['home','house','room'],
+			cards: [
+				{
+					id: crypto.randomUUID(),
+					"value": "home",
+					"level": "A1",
+					"type": "noun",
+					"IPA": "\\ həʊm \\",
+					"description": "The place where one lives",
+					"example": "What is your home address?",
+					"tips": [
+						{
+							id: crypto.randomUUID(),
+							"value": "The place where one lives",
+							"description": "The place where one lives",
+							"example":"What is your home address?"
+						},
+						{
+							id: crypto.randomUUID(),
+							"value": "The place where one is born",
+							"description": "The place where one is born",
+							"example":"Where was I born?"
+						}
+					]
+				},
+				{
+					id: crypto.randomUUID(),
+					"img": avatar,
+					"value": "house",
+					"level": "A1",
+					"type": "noun",
+					"IPA": "\\ həʊm \\",
+					"description": "The place where one lives",
+					"example": "What is your home address?",
+					"tips": [
+						{
+							id: crypto.randomUUID(),
+							"value": "Building",
+							"description": "The place where one lives",
+							"example":"What is your home address?"
+						}
+					]
+				},
+				{
+					id: crypto.randomUUID(),
+					"img": "",
+					value: "room",
+					level: "B2",
+					type: "noun",
+					IPA: "r ohm",
+					description: "A separate part of a house or building, such as the living room or bedroom.",
+					example: "Which room do you sleep in?",
+					tips: [
+						{
+							id: crypto.randomUUID(),
+							"value": "Living Room",
+							"description": "The main room for eating and relaxing.",
+							example: "I like to watch TV in the living room."
+						}
+					]
+				}
+			]
+		}
 	]
 };
 

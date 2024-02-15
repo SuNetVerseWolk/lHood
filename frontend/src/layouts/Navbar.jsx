@@ -1,8 +1,12 @@
 import React from 'react'
 
-const Navbar = ({children, flexDirection, justifyContent, alignItems, width, link}) => {
+const Navbar = ({innerRef, children, flexDirection, justifyContent, alignItems, width}) => {
 	return (
-		<nav ref={link} className='navbar' style={{flexDirection, justifyContent, alignItems, width}}>
+		<nav
+			ref={innerRef}
+			className='navbar'
+			style={{flexDirection, justifyContent, alignItems, width}}
+		>
 			{children}
 		</nav>
 	)
