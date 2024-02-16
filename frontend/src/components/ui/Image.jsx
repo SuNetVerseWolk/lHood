@@ -9,8 +9,8 @@ const Image = ({ src, alt, setImage, style, isEditable }) => {
 	}
 
 	const imgUploaderChange = async e => {
-		console.log(1)
 		const result = await getFileResult(e);
+		e.target.value = '';
 
 		setImage(...result)
 	}
@@ -27,7 +27,7 @@ const Image = ({ src, alt, setImage, style, isEditable }) => {
 				ref={imgUploader}
 				type='file'
 				accept="image/*"
-				onChange={imgUploaderChange}
+				onInput={imgUploaderChange}
 				style={{display: 'none'}}
 			/>
 		</>

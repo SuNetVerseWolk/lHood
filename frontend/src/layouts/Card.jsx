@@ -8,11 +8,11 @@ import styles from '../styles/pattern.module.css';
 const Card = ({
 	data,
 	index,
+	isMain,
 	setData,
-	ridData,
+	remove,
 	isEditable,
-	saveNewData,
-	isMain
+	saveNewData
 }) => {
 	const levels = useMemo(e => JSON.parse(import.meta.env.VITE_CardLevels), []);
 	const types = useMemo(e => JSON.parse(import.meta.env.VITE_CardTypeOfValue), []);
@@ -36,14 +36,25 @@ const Card = ({
 		});
 	}
 
+	const handleClear = e => {
+		setData(prev => {
+			let clearedData = {value: '', description: '', example: ''};
+
+			if (prev.IPA)
+				clearedData = {...clearedData, IPA: ''}
+
+			return {...prev, ...clearedData}
+		});
+	}
+
 	const handleRightArrow = e => {
 		saveNewData(prev => {
-			prev[index] = {...data, id: crypto.randomUUID()};
 			console.log(prev)
-			setData({});
+			prev[index] = {...data, id: crypto.randomUUID()};
 
 			return [...prev];
 		})
+		setData({});
 	}
 
 	return (
@@ -54,7 +65,7 @@ const Card = ({
 		>
 			{!!saveNewData ? (
 				<>
-					<div className={styles.ridBtn}>
+					<div className={styles.ridBtn} onClick={handleClear}>
 						<ClearTSvg />
 					</div>
 					<div id={styles.rightArrow} onClick={handleRightArrow}>
@@ -62,7 +73,7 @@ const Card = ({
 					</div>
 				</>
 			) : isEditable && (
-				<div id={styles.cross} className={styles.ridBtn} onClick={ridData}>
+				<div id={styles.cross} className={styles.ridBtn} onClick={e => remove(data.id)}>
 					<CrossSvg />
 				</div>
 			)}
@@ -70,7 +81,7 @@ const Card = ({
 			{isMain && (
 				<select
 					name="level"
-					id={styles.level}
+					className={styles.level}
 					disabled={!isEditable}
 					defaultValue={data?.level}
 					onChange={changeData}
@@ -84,7 +95,7 @@ const Card = ({
 			)}
 
 			<input
-				id={styles.value}
+				className={styles.value}
 				type="text"
 				name="value"
 				placeholder="Value"
@@ -95,7 +106,7 @@ const Card = ({
 
 			{isMain && (
 				<>
-					<div id={styles.value}>
+					<div className={styles.value}>
 						<input
 							id={styles.IPA}
 							name='IPA'
@@ -125,8 +136,8 @@ const Card = ({
 
 			<textarea
 				name='description'
-				id={styles.description}
-				value={data?.description}
+				className={styles.description}
+				value={data?.description || ''}
 				disabled={!isEditable}
 				placeholder='Write a description...'
 				onInput={changeData}
@@ -134,8 +145,8 @@ const Card = ({
 
 			<textarea
 				name='example'
-				id={styles.example}
-				value={data?.example}
+				className={styles.example}
+				value={data?.example || ''}
 				disabled={!isEditable}
 				placeholder='Write an example...'
 				onInput={changeData}

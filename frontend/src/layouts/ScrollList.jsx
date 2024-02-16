@@ -2,15 +2,25 @@ import React, { useRef } from 'react'
 import Card from './Card'
 import { scrollList } from '../styles/scrollList.module.css'
 
-const ScrollList = ({items, setItems, isEditable, setCurrentId, type, newItem, setNewItem, isMain}) => {
+const ScrollList = ({
+	type,
+	items,
+	isMain,
+	newItem,
+	saveItem,
+	setNewItem,
+	removeItem,
+	isEditable,
+	setCurrentId
+}) => {
 	const ref = useRef();
 
 	const getCurrentCardId = e => {
 		if (!setCurrentId) return;
 
 		const el = ref.current;
-		const cardWidth = el.querySelector('div').offsetWidth;
-		let cardId = Math.round((el.scrollLeft + cardWidth) / cardWidth);
+		const cardWidth = el.querySelector('div')?.offsetWidth;
+		let cardId = Math.round((el?.scrollLeft + cardWidth) / cardWidth);
 		cardId = isEditable ? cardId - 2 : cardId - 1;
 		cardId = cardId < 0 ? items.length : cardId;
 
@@ -26,7 +36,7 @@ const ScrollList = ({items, setItems, isEditable, setCurrentId, type, newItem, s
 					isEditable={true}
 					setData={setNewItem}
 					index={items?.length || 0}
-					saveNewData={setItems}
+					saveNewData={saveItem}
 				/>
 			)}
 			{items?.map((item, index) => (
@@ -35,7 +45,8 @@ const ScrollList = ({items, setItems, isEditable, setCurrentId, type, newItem, s
 					index={index}
 					key={item.id}
 					isMain={isMain}
-					setData={setItems}
+					setData={saveItem}
+					remove={removeItem}
 					isEditable={isEditable}
 				/>
 			))}
