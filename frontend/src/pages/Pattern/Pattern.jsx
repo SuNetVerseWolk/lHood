@@ -59,9 +59,10 @@ const Pattern = () => {
 			return [...prev];
 		});
 	}
+	console.log(currentCardId)
 
 	useEffect(e => {
-		if (!Object.keys(newCard).length) {
+		if (!Object.keys(newCard).length && cards.length) {
 			setNewCard(defaultCardValue)
 			setCurrentCardId(prev => prev + 1)
 		}
