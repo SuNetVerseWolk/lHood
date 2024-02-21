@@ -85,6 +85,7 @@ const Pattern = () => {
 	useEffect(e => {
 		if (!Object.keys(newCard).length) {
 			setNewCard(defaultCardValue);
+			setNewTip({});
 
 			if (cards.length)
 				setCurrentCardId(prev => prev + 1);
@@ -106,9 +107,10 @@ const Pattern = () => {
 				<div>
 					<ScrollList
 						type="card"
-						isMain={true}
 						items={cards}
+						isMain={true}
 						newItem={newCard}
+						newChild={newTip}
 						saveItem={setCards}
 						isEditable={isEditable}
 						setNewItem={setNewCard}

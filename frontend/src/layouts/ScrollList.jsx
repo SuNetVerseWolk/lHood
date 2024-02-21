@@ -7,6 +7,7 @@ const ScrollList = ({
 	items,
 	isMain,
 	newItem,
+	newChild,
 	saveItem,
 	setNewItem,
 	removeItem,
@@ -34,9 +35,10 @@ const ScrollList = ({
 					data={newItem}
 					isMain={isMain}
 					isEditable={true}
+					newChild={newChild}
 					setData={setNewItem}
-					index={items?.length || 0}
 					saveNewData={saveItem}
+					index={items?.length || 0}
 				/>
 			)}
 			{items?.map((item, index) => (

@@ -6,161 +6,166 @@ import CrossSvg from "../assets/cross.svg?react";
 import styles from "../styles/pattern.module.css";
 
 const Card = ({
-  data,
-  index,
-  isMain,
-  setData,
-  remove,
-  isEditable,
-  saveNewData,
+	data,
+	index,
+	remove,
+	isMain,
+	setData,
+	newChild,
+	isEditable,
+	saveNewData
 }) => {
-  const levels = useMemo(
-    (e) => JSON.parse(import.meta.env.VITE_CardLevels),
-    [],
-  );
-  const types = useMemo(
-    (e) => JSON.parse(import.meta.env.VITE_CardTypeOfValue),
-    [],
-  );
+	const levels = useMemo(
+		(e) => JSON.parse(import.meta.env.VITE_CardLevels),
+		[],
+	);
+	const types = useMemo(
+		(e) => JSON.parse(import.meta.env.VITE_CardTypeOfValue),
+		[],
+	);
 
-  const changeData = (e) => {
-    const el = e.target;
+	const changeData = (e) => {
+		const el = e.target;
 
-    if (el.localName === "textarea") {
-      el.style.height = "auto";
-      el.style.height = `${el.scrollHeight}px`;
-    }
+		if (el.localName === "textarea") {
+			el.style.height = "auto";
+			el.style.height = `${el.scrollHeight}px`;
+		}
 
-    setData((prev) => {
-      if (!saveNewData) {
-        prev[index] = { ...prev[index], [el.name]: el.value };
+		setData((prev) => {
+			if (!saveNewData) {
+				prev[index] = { ...prev[index], [el.name]: el.value };
 
-        return [...prev];
-      }
+				return [...prev];
+			}
 
-      return { ...prev, [el.name]: el.value };
-    });
-  };
+			return { ...prev, [el.name]: el.value };
+		});
+	};
 
-  const handleClear = (e) => {
-    setData((prev) => {
-      let clearedData = { value: "", description: "", example: "" };
+	const handleClear = (e) => {
+		setData((prev) => {
+			let clearedData = { value: "", description: "", example: "" };
 
-      if (prev.IPA) clearedData = { ...clearedData, IPA: "" };
+			if (prev.IPA) clearedData = { ...clearedData, IPA: "" };
 
-      return { ...prev, ...clearedData };
-    });
-  };
+			return { ...prev, ...clearedData };
+		});
+	};
 
-  const handleRightArrow = (e) => {
-    saveNewData((prev) => {
-      console.log(prev);
-      prev[index] = { ...data, id: crypto.randomUUID() };
+	const handleRightArrow = (e) => {
+		saveNewData((prev) => {
+			console.log(prev);
+			prev[index] = { ...data, id: crypto.randomUUID() };
+			if (newChild) {
+				const newTip = {...newChild, id: crypto.randomUUID()};
+				prev[index] = { ...prev[index], tips: [...(prev[index].tips || []), newTip] }
+			}
 
-      return [...prev];
-    });
-    setData({});
-  };
+			return [...prev];
+		});
+		setData({});
+	};
 
-  return (
-    <motion.div
-      className={styles.card}
-      initial={{ scale: 0.8 }}
-      animate={{ scale: 1 }}
-      whileTap={{ scale: 0.97, transition: { duration: 1 } }}
-    >
-      {!!saveNewData ? (
-        <>
-          <div className={styles.ridBtn} onClick={handleClear}>
-            <ClearTSvg />
-          </div>
-          <div id={styles.rightArrow} onClick={handleRightArrow}>
-            <RightArrowSvg />
-          </div>
-        </>
-      ) : (
-        isEditable && (
-          <div
-            id={styles.cross}
-            className={styles.ridBtn}
-            onClick={(e) => remove(data.id)}
-          >
-            <CrossSvg />
-          </div>
-        )
-      )}
+	return (
+		<motion.div
+			className={styles.card}
+			initial={{ scale: 0.8 }}
+			animate={{ scale: 1 }}
+			whileTap={{ scale: 0.97, transition: { duration: 1 } }}
+		>
+			{!!saveNewData ? (
+				<>
+					<div className={styles.ridBtn} onClick={handleClear}>
+						<ClearTSvg />
+					</div>
+					<div id={styles.rightArrow} onClick={handleRightArrow}>
+						<RightArrowSvg />
+					</div>
+				</>
+			) : (
+				isEditable && (
+					<div
+						id={styles.cross}
+						className={styles.ridBtn}
+						onClick={(e) => remove(data.id)}
+					>
+						<CrossSvg />
+					</div>
+				)
+			)}
 
-      {isMain && (
-        <select
-          name="level"
-          className={styles.level}
-          disabled={!isEditable}
-          defaultValue={data?.level}
-          onChange={changeData}
-        >
-          {levels.map((level) => (
-            <option key={level}>{level}</option>
-          ))}
-        </select>
-      )}
+			{isMain && (
+				<select
+					name="level"
+					className={styles.level}
+					disabled={!isEditable}
+					defaultValue={data?.level}
+					onChange={changeData}
+				>
+					{levels.map((level) => (
+						<option key={level}>{level}</option>
+					))}
+				</select>
+			)}
 
-      <input
-        className={styles.value}
-        type="text"
-        name="value"
-        placeholder="Value"
-        disabled={!isEditable}
-        value={data?.value || ""}
-        onInput={changeData}
-      />
+			<input
+				className={styles.value}
+				type="text"
+				name="value"
+				placeholder="Value"
+				disabled={!isEditable}
+				value={data?.value || ""}
+				onInput={changeData}
+			/>
 
-      {isMain && (
-        <>
-          <div className={styles.value}>
-            <input
-              id={styles.IPA}
-              name="IPA"
-              type="text"
-              disabled={!isEditable}
-              placeholder="transcription"
-              value={data?.IPA || ""}
-              onInput={changeData}
-            />
-            <select
-              name="type"
-              id={styles.type}
-              disabled={!isEditable}
-              defaultValue={data?.type}
-              onChange={changeData}
-            >
-              {types.map((type) => (
-                <option key={type}>{type}</option>
-              ))}
-            </select>
-          </div>
-          <hr />
-        </>
-      )}
+			{isMain && (
+				<>
+					<div className={styles.value}>
+						<input
+							id={styles.IPA}
+							name="IPA"
+							type="text"
+							disabled={!isEditable}
+							placeholder="transcription"
+							value={data?.IPA || ""}
+							onInput={changeData}
+						/>
+						<select
+							name="type"
+							id={styles.type}
+							disabled={!isEditable}
+							defaultValue={data?.type}
+							onChange={changeData}
+						>
+							{types.map((type) => (
+								<option key={type}>{type}</option>
+							))}
+						</select>
+					</div>
+					<hr />
+				</>
+			)}
 
-      <textarea
-        name="description"
-        className={styles.description}
-        value={data?.description || ""}
-        disabled={!isEditable}
-        placeholder="Write a description..."
-        onInput={changeData}
-      />
+			<textarea
+				name="description"
+				className={styles.description}
+				value={data?.description || ""}
+				disabled={!isEditable}
+				placeholder="Write a description..."
+				onInput={changeData}
+			/>
 
-      <textarea
-        name="example"
-        className={styles.example}
-        value={data?.example || ""}
-        disabled={!isEditable}
-        placeholder="Write an example..."
-        onInput={changeData}
-      />
-    </motion.div>
-  );
+			<textarea
+				name="example"
+				className={styles.example}
+				value={data?.example || ""}
+				disabled={!isEditable}
+				placeholder="Write an example..."
+				onInput={changeData}
+			/>
+		</motion.div>
+	);
 };
 
 export default Card;
