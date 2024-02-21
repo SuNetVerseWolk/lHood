@@ -92,6 +92,8 @@ const Pattern = () => {
 		}
 	}, [newCard]);
 
+	console.log(userDefaultData.patterns)
+
 	return (
 		<div id='fullSize' className={pattern}>
 			<Tools

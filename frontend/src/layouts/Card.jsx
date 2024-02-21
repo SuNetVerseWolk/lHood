@@ -57,7 +57,7 @@ const Card = ({
 		saveNewData((prev) => {
 			console.log(prev);
 			prev[index] = { ...data, id: crypto.randomUUID() };
-			if (newChild) {
+			if (Object.keys(newChild).length) {
 				const newTip = {...newChild, id: crypto.randomUUID()};
 				prev[index] = { ...prev[index], tips: [...(prev[index].tips || []), newTip] }
 			}
