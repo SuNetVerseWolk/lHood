@@ -61,7 +61,7 @@ const Pattern = () => {
 		onSuccess: e => {
 			setIsEditable(false);
 			setCurrentCardId(prev => prev === cards.length ? 0 : prev);
-			navigate(`../patterns/${cards[0].value}`, {replace: true});
+			navigate(`/lHood/patterns/${cards[0].value}`, {replace: true});
 		}
 	});
 

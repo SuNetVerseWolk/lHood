@@ -42,7 +42,7 @@ const Item = ({children, id, value, img, i, isAvatarPhotoShown = true}) => {
 					setTimeout(e => setHolded(false), 5000);
 				}}
 				
-				onClick={e => navigate('/patterns/' + value)}
+				onClick={e => navigate('/lHood/patterns/' + value)}
 			>
 				{isAvatarShown && <Avatar src={img} href='' setIsShown={setIsAvatarShown} shouldIsShown={isAvatarPhotoShown} />}
 				<p id='value'>{value}</p>

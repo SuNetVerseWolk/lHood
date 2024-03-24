@@ -29,7 +29,7 @@ export const Searcher = ({searchValue, setSearchValue}) => {
 					transition={{ease: 'backOut'}}
 					whileTap={{scale: .97}}
 
-					onClick={e => navigate('/patterns/' + import.meta.env.VITE_NEWDATAKEY)}>
+					onClick={e => navigate('/lHood/patterns/' + import.meta.env.VITE_NEWDATAKEY)}>
 						<AddBoxesSvg/>
 				</motion.div>}
 		</motion.div>
