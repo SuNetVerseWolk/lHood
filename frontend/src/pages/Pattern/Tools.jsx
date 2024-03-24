@@ -8,7 +8,7 @@ const Tools = ({
 	isEditable,
 	setIsEditable,
 	cancelSaving,
-	ecceptSaving
+	acceptSaving
 }) => {
 	return (
 		<div>
@@ -34,7 +34,7 @@ const Tools = ({
 						animate={{scale: 1}}
 						whileTap={{scale: .97}}
 					>
-						<AcceptSvg onClick={ecceptSaving} />
+						<AcceptSvg onClick={acceptSaving} />
 					</motion.div>
 				</>
 			) : (

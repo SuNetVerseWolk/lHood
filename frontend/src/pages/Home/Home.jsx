@@ -4,11 +4,10 @@ import { isDeviceType } from '../../services/checkDeviceType'
 import Header from './layouts/Header'
 import Avatar from '../../components/Avatar'
 import NavMenu from './layouts/NavMenu'
-import avatar from '../../assets/profileGif.gif'
 
 const Home = ({searchValue, setSearchValue}) => {
 	const deviceType = isDeviceType();
-	const avatarEl = <Avatar src={avatar} href={'menu'} />;
+	const avatarEl = <Avatar href={'menu'} shouldIsShown={true} />;
 
 	return (
 		<>

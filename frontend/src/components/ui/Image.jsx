@@ -1,18 +1,19 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import getFileResult from '../../utils/getFileResult';
 
-const Image = ({ src, alt, setImage, style, isEditable }) => {
-	const imgUploader = useRef();
+const Image = ({ src, alt, setImage }) => {
+	const handleImage = async e => {
+		try {
+			const fileInputEl = document.createElement('input')
+			fileInputEl.type = 'file'
+			fileInputEl.onchange = async e =>
+				setImage(await getFileResult(e.target.files[0]))
 
-	const handleImageUpload = e => {
-		if (isEditable) imgUploader.current?.click();
-	}
+			fileInputEl.click()
 
-	const imgUploaderChange = async e => {
-		const result = await getFileResult(e);
-		e.target.value = '';
-
-		setImage(...result)
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	return (
@@ -20,15 +21,7 @@ const Image = ({ src, alt, setImage, style, isEditable }) => {
 			<img
 				src={src}
 				alt={alt || 'img'}
-				onClick={handleImageUpload}
-				style={style}
-			/>
-			<input
-				ref={imgUploader}
-				type='file'
-				accept="image/*"
-				onInput={imgUploaderChange}
-				style={{display: 'none'}}
+				onClick={handleImage}
 			/>
 		</>
 	)

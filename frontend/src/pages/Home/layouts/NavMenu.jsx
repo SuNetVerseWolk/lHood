@@ -12,13 +12,13 @@ const NavMenu = ({children}) => {
 		<div className='navMenu'>
 			{children}
 			<Navbar width={'100%'}>
-				<NavLink to={'get/people'}>
+				<NavLink to={'people/filter/all'}>
 					<PeopleBtn />
 				</NavLink>
 				<NavLink to={'recall'} className={match && 'active'} >
 					<RecallBtn />
 				</NavLink>
-				<NavLink to={'get/local'}>
+				<NavLink to={'patterns/filter/all'}>
 					<LearnSourcesBtn />
 				</NavLink>
 			</Navbar>

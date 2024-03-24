@@ -1,0 +1,49 @@
+{
+	"data": {
+		"communities": [
+			{
+				"id" : 176587,
+				"name": "communityName",
+				"description": "communityDescription",
+				"ownerId": 17429471986,
+				"memberIds": [17429471986]
+			}
+		],
+		"people": [
+			{
+				"id": 17429471986,
+				"name": "userName",
+				"avatar": "path",
+				"communities": [7932758687],
+				"friends": [13648762],
+				"patterns": [975918798]
+			}
+		],
+		"patterns": [
+			{
+				"id": 2634754,
+				"cards": [
+					{
+						"id": 984627856,
+						"value": "home",
+						"level": "A1",
+						"type": "noun",
+						"IPA": "\\ həʊm \\",
+						"state": "learned",
+						"description": "The place where one lives",
+						"example": "What is your home address?",
+						"file": {},
+						"tips": [
+							{
+								"id": 2652,
+								"value": "The place where one lives",
+								"description": "The place where one lives",
+								"example":"What is your home address?"
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+}

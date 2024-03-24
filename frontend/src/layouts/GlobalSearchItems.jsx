@@ -7,7 +7,7 @@ const GlobalSearchItems = ({ mark, id, clearSearchValue, search, userData }) => 
 	if (!id) return;
 
 	if (search === 'people' && mark === '#')
-		if (!userData.data[search]?.includes(id)) {
+		if (!userData[search]?.includes(id)) {
 			const {name, img} = people?.find(item => item.id === id) || {};
 			if (name && img)
 				return (

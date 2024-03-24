@@ -6,12 +6,12 @@ import { motion } from 'framer-motion'
 
 export const Searcher = ({searchValue, setSearchValue}) => {
 	const navigate = useNavigate();
-	const { search } = useParams();
-	const isLocal = search === 'local';
-	const placeholder = search ? `Search ${search}` : 'Not available for search';
+	const { param, filter } = useParams();
+	const patternsPage = param === 'patterns' && filter === 'all';
+	const placeholder = filter || param ? `Search ${filter != 'all' ? filter : param}` : 'Not available for search';
 
 	return (
-		<motion.div id='searcherBox' className={isLocal ? 'btnBox' : null} animate={{scale: 1}} initial={{scale: .95}}>
+		<motion.div id='searcherBox' className={patternsPage ? 'btnBox' : null} animate={{scale: 1}} initial={{scale: .95}}>
 			<motion.label htmlFor="search" id='searcher' whileTap={{scale: .99}}>
 				<input
 					type="text"
@@ -22,14 +22,14 @@ export const Searcher = ({searchValue, setSearchValue}) => {
 				/>
 				<SearchSvg />
 			</motion.label>
-			{isLocal &&
+			{patternsPage &&
 				<motion.div
 					animate={{scaleX: 1}}
 					initial={{scaleX: 0, transformOrigin: 'center right'}}
 					transition={{ease: 'backOut'}}
 					whileTap={{scale: .97}}
 
-					onClick={e => navigate(import.meta.env.VITE_NEWDATAKEY)}>
+					onClick={e => navigate('/patterns/' + import.meta.env.VITE_NEWDATAKEY)}>
 						<AddBoxesSvg/>
 				</motion.div>}
 		</motion.div>

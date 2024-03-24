@@ -7,35 +7,35 @@ import Menu from './pages/Menu';
 import Person from './pages/Person';
 import Search from './pages/Search'
 import { isDeviceType } from './services/checkDeviceType';
-import useUserDataManager from './data/user';
 import Pattern from './pages/Pattern/Pattern';
+import Logined from './features/authentication/components/Logined';
 
 const App = () => {
-	const userData = useUserDataManager();
 	const [searchValue, setSearchValue] = useState('');
 	const clearSearchValue = e => setSearchValue('');
 
-  return (
+	return (
 		<>
-			{isDeviceType()?.largeScreen && <link rel="stylesheet" href="/lHood/AppDesktop.css" />}
+			{isDeviceType()?.largeScreen && <link rel="stylesheet" href="AppDesktop.css" />}
 			<Routes>
-				<Route path='/lHood' element={<Home search={searchValue} setSearch={setSearchValue} />}>
-					<Route path='' element={<Recall />} />
-					<Route path='recall' element={<Recall />} />
-					<Route path='get'>
+				<Route path='*' element={<Home search={searchValue} setSearch={setSearchValue} />}>
+					<Route path='' element={<Logined><Recall /></Logined>} />
+					<Route path='recall' element={<Logined><Recall /></Logined>} />
+					<Route path='people/:id' element={<Logined><Person /></Logined>} />
+					<Route path='patterns/:value' element={<Logined><Pattern/></Logined>} />
+					<Route path=':param/filter'>
 						<Route
-							path=':search'
+							path=':filter'
 							element={
-								<Search
-									searchValue={searchValue}
-									setSearchValue={setSearchValue}
-									clearSearchValue={clearSearchValue}
-									userData={userData}
-								/>
+								<Logined>
+									<Search
+										searchValue={searchValue}
+										setSearchValue={setSearchValue}
+										clearSearchValue={clearSearchValue}
+									/>
+								</Logined>
 							}
 						/>
-						<Route path='people/:id' element={<Person />} />
-						<Route path='local/:param' element={<Pattern userData={userData}/>} />
 					</Route>
 					<Route path='menu' element={<Menu />} />
 				</Route>

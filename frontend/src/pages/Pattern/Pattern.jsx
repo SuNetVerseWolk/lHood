@@ -1,21 +1,35 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { pattern } from '../../styles/pattern.module.css'
 import Image from '../../components/ui/Image'
-import { userDefaultData } from '../../data/user'
 import ScrollList from '../../layouts/ScrollList'
 import Tools from './Tools'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import axios from 'axios'
 
 const Pattern = () => {
+	const navigate = useNavigate();
 	const defaultCardValue = useMemo(e => JSON.parse(import.meta.env.VITE_DefaultCardValue), []);
-	const { param } = useParams();
-	const [savedCards, setSavedCards] = useState(
-		userDefaultData.patterns.find(pattern => pattern.cardsValues.includes(param))?.cards
-		|| []
-	);
-	const [cards, setCards] = useState([...savedCards]);
+	const { value } = useParams();
+	const isNew = useMemo(e => value === import.meta.env.VITE_NEWDATAKEY, [value]);
+	const [isEditable, setIsEditable] = useState(value === import.meta.env.VITE_NEWDATAKEY);
+	const [cards, setCards] = useState([]);
+	const { data, isLoading } = useQuery({
+		queryKey: ['patterns'],
+		queryFn: () => {
+			if (isNew) return {cards};
+
+			return axios.get(`/api/patterns/${value}`).then(res => {
+				const data = res.data;
+
+				setCards(data?.cards || []);
+
+				return data;
+			})
+		},
+		enabled: !isEditable
+	})
 	const [currentCardId, setCurrentCardId] = useState(0);
-	const [isEditable, setIsEditable] = useState(param === import.meta.env.VITE_NEWDATAKEY);
 	const isNewCardCurrent = useMemo(e => currentCardId === cards?.length, [currentCardId, cards]);
 	const [newCard, setNewCard] = useState({});
 	const [newTip, setNewTip] = useState({});
@@ -25,26 +39,41 @@ const Pattern = () => {
 			src: isNewCardCurrent ? newCard?.img : cards[currentCardId]?.img,
 			alt: 'Pattern Image',
 			isEditable,
-			setImage: (file, img) => {
+			currentCardId: currentCardId,
+			setImage: (img) => {
 				if (isNewCardCurrent)
-					setNewCard(prev => ({ ...prev, file, img }));
+					setNewCard(prev => ({ ...prev, img }));
 				else
 				setCards(prev => {
-					prev[currentCardId] = {...prev[currentCardId], file, img}
+					prev[currentCardId] = {...prev[currentCardId], img}
 	
 					return [...prev];
 				});
-			},
+			}
 		}
 	}, [isNewCardCurrent, newCard, cards, currentCardId, isEditable]);
 
-	const ecceptSaving = e => {
-		setSavedCards([...cards]);
-		setIsEditable(false);
-		setCurrentCardId(prev => prev === cards.length ? 0 : prev);
+	const { mutate, error } = useMutation({
+		mutationFn: ({api, value}) => {
+			axios.post(`/api/patterns${api}`, value);
+		},
+		onError: error => console.log(error),
+		onSuccess: e => {
+			setIsEditable(false);
+			setCurrentCardId(prev => prev === cards.length ? 0 : prev);
+			navigate(`../patterns/${cards[0].value}`, {replace: true});
+		}
+	});
+
+	const acceptSaving = async e => {
+		const
+		api = isNew ? '' : `/${data.id}`,
+		value = isNew ? {cards} : cards;
+
+		mutate({api, value});
 	}
 	const cancelSaving = e => {
-		setCards([...savedCards]);
+		setCards([...data.cards]);
 		setIsEditable(false);
 		setCurrentCardId(prev => prev === cards.length ? 0 : prev);
 	}
@@ -53,7 +82,7 @@ const Pattern = () => {
 		if (isNewCardCurrent)
 			setNewCard(prev => ({
 				...prev,
-				tips: calback(prev.tips || [])
+				tips: calback(prev?.tips || [])
 			}));
 		else
 		setCards(prev => {
@@ -92,15 +121,13 @@ const Pattern = () => {
 		}
 	}, [newCard]);
 
-	console.log(userDefaultData.patterns)
-
 	return (
 		<div id='fullSize' className={pattern}>
 			<Tools
 				isEditable={isEditable}
 				setIsEditable={setIsEditable}
 				cancelSaving={cancelSaving}
-				ecceptSaving={ecceptSaving}
+				acceptSaving={acceptSaving}
 			/>
 
 			<Image {...image} />

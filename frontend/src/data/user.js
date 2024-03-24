@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import avatar from '../assets/profileGif.gif'
 
 export const people = [
@@ -34,7 +33,7 @@ export const userDefaultData = {
 			cardsValues : ['home','house','room'],
 			cards: [
 				{
-					id: crypto.randomUUID(),
+					id: new Date().getTime(),
 					"value": "home",
 					"level": "A1",
 					"type": "noun",
@@ -43,13 +42,13 @@ export const userDefaultData = {
 					"example": "What is your home address?",
 					"tips": [
 						{
-							id: crypto.randomUUID(),
+							id: new Date().getTime(),
 							"value": "The place where one lives",
 							"description": "The place where one lives",
 							"example":"What is your home address?"
 						},
 						{
-							id: crypto.randomUUID(),
+							id: new Date().getTime(),
 							"value": "The place where one is born",
 							"description": "The place where one is born",
 							"example":"Where was I born?"
@@ -57,7 +56,7 @@ export const userDefaultData = {
 					]
 				},
 				{
-					id: crypto.randomUUID(),
+					id: new Date().getTime(),
 					"img": avatar,
 					"value": "house",
 					"level": "A1",
@@ -67,7 +66,7 @@ export const userDefaultData = {
 					"example": "What is your home address?",
 					"tips": [
 						{
-							id: crypto.randomUUID(),
+							id: new Date().getTime(),
 							"value": "Building",
 							"description": "The place where one lives",
 							"example":"What is your home address?"
@@ -75,7 +74,7 @@ export const userDefaultData = {
 					]
 				},
 				{
-					id: crypto.randomUUID(),
+					id: new Date().getTime(),
 					"img": "",
 					value: "room",
 					level: "B2",
@@ -85,7 +84,7 @@ export const userDefaultData = {
 					example: "Which room do you sleep in?",
 					tips: [
 						{
-							id: crypto.randomUUID(),
+							id: new Date().getTime(),
 							"value": "Living Room",
 							"description": "The main room for eating and relaxing.",
 							example: "I like to watch TV in the living room."
@@ -97,32 +96,9 @@ export const userDefaultData = {
 	]
 };
 
-const useUserDataManager = (data = userDefaultData) => {
-	const [userData, setUserData] = useState(data);
-
-	const addToSubjects = (item) => {
-		setUserData({...userData, Subjects: [...userData.Subjects, item]});
-	};
-
-	const removeFromSubjects = (index) => {
-		setUserData({...userData, Subjects: userData.Subjects.splice(index, 1)});
-	};
-
-	const addPeople = (item) => {
-		setUserData({...userData, people: [...userData.people, item]});
-	};
-
-	const removeFromPeople = (index) => {
-		setUserData({...userData, people: userData.people.splice(index, 1)});
-	};
-
-	return {
-		addToSubjects,
-		removeFromSubjects,
-		addPeople,
-		removeFromPeople,
-		data: userData,
-	};
+export const isLogined = e => localStorage.getItem("logined") || 1;
+const userDataManager = {
+	logined: localStorage.getItem("logined")
 };
 
-export default useUserDataManager;
+export default userDataManager;

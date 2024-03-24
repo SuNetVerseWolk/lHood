@@ -5,8 +5,9 @@ import Navbar from '../layouts/Navbar'
 import Avatar from './Avatar'
 import ItemsBtn from './ItemsBtn'
 
-const Item = ({children, id, name, img, i}) => {
+const Item = ({children, id, value, img, i, isAvatarPhotoShown = true}) => {
 	const navigate = useNavigate();
+	const [isAvatarShown, setIsAvatarShown] = useState(true);
 	let [holded, setHolded] = useState(false);
 	let isHolded = false;
 
@@ -41,10 +42,10 @@ const Item = ({children, id, name, img, i}) => {
 					setTimeout(e => setHolded(false), 5000);
 				}}
 				
-				onClick={e => navigate(id)}
+				onClick={e => navigate('/patterns/' + value)}
 			>
-				{img && <Avatar src={img} href='' />}
-				<p id='name'>{name}</p>
+				{isAvatarShown && <Avatar src={img} href='' setIsShown={setIsAvatarShown} shouldIsShown={isAvatarPhotoShown} />}
+				<p id='value'>{value}</p>
 			</motion.div>
 			<motion.div
 				initial={item.hidden}

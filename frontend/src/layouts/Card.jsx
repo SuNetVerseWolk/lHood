@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import RightArrowSvg from "../assets/rightArrow.svg?react";
 import ClearTSvg from "../assets/clearText.svg?react";
@@ -55,16 +55,18 @@ const Card = ({
 
 	const handleRightArrow = (e) => {
 		saveNewData((prev) => {
-			console.log(prev);
-			prev[index] = { ...data, id: crypto.randomUUID() };
-			if (Object.keys(newChild).length) {
-				const newTip = {...newChild, id: crypto.randomUUID()};
+			prev[index] = { ...data, id: new Date().getTime() };
+			console.log("Prev", prev);
+			console.log("NewChild", newChild);
+
+			if (newChild && Object.keys(newChild).length) {
+				const newTip = {...newChild, id: new Date().getTime()};
 				prev[index] = { ...prev[index], tips: [...(prev[index].tips || []), newTip] }
 			}
-
+			
+			setData({});
 			return [...prev];
 		});
-		setData({});
 	};
 
 	return (
