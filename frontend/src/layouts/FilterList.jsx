@@ -37,7 +37,7 @@ const FilterList = ({ searchValue, clearSearchValue }) => {
 		)
 	}, [searchValue, param, filter, data]);
 
-	console.log(data, param, filter)
+	//console.log(data, param, filter)
 
 	let id = useMemo(e => searchValue.slice(1), [searchValue]);
 	let mark = useMemo(e => searchValue[0], [searchValue]);
