@@ -13,7 +13,7 @@ export default defineConfig({
 				changeOrigin: true,
 				rewrite: path => {
 					console.log(path)
-					return path.replace(/^\^\/lHood\/api/, '')
+					return path.replace(/^\/api/, '')
 				},
 			},
 		},
