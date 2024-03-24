@@ -7,11 +7,14 @@ export default defineConfig({
 	base: '/lHood/',
 	server: {
 		proxy: {
-			'/api': {
+			'/lHood/api': {
 				//target: 'http://localhost:3001',
 				target: 'https://lhood.onrender.com',
 				changeOrigin: true,
-				rewrite: path => path.replace(/^\/api/, '')
+				rewrite: path => {
+					console.log(path)
+					return path.replace(/^\^\/lHood\/api/, '')
+				},
 			},
 		},
 	},
