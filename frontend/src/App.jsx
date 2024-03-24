@@ -19,7 +19,7 @@ const App = () => {
 			{isDeviceType()?.largeScreen && <link rel="stylesheet" href="AppDesktop.css" />}
 			<Routes>
 				<Route path='*' element={<Home search={searchValue} setSearch={setSearchValue} />}>
-					<Route path='' element={<Logined><Recall /></Logined>} />
+					<Route path='lHood' element={<Logined><Recall /></Logined>} />
 					<Route path='recall' element={<Logined><Recall /></Logined>} />
 					<Route path='people/:id' element={<Logined><Person /></Logined>} />
 					<Route path='patterns/:value' element={<Logined><Pattern/></Logined>} />
