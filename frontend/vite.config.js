@@ -6,15 +6,13 @@ import svgr from 'vite-plugin-svgr'
 export default defineConfig({
 	base: '/lHood/',
 	server: {
+		host: true,
 		proxy: {
-			'/lHood/api': {
+			'/api': {
 				//target: 'http://localhost:3001',
 				target: 'https://lhood.onrender.com',
 				changeOrigin: true,
-				rewrite: path => {
-					console.log(path)
-					return path.replace(/^\/api/, '')
-				},
+				rewrite: path => path.replace(/^\/api/, ''),
 			},
 		},
 	},
