@@ -26,7 +26,7 @@ dataPaths.forEach(dataPath => {
 		data = getData(dataPath)
 
 		data.push(newItem);
-		setData(dataPath, data);
+		!setData(dataPath, data) && res.status(500).send(false);
 
 		res.json(newItem.id);
 	});
