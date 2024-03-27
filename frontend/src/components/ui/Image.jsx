@@ -1,8 +1,11 @@
 import React from 'react'
 import getFileResult from '../../utils/getFileResult';
 
-const Image = ({ src, alt, setImage }) => {
+const Image = ({ src, alt, setImage, isEditable }) => {
 	const handleImage = async e => {
+		if (!isEditable)
+			return null;
+
 		try {
 			const fileInputEl = document.createElement('input')
 			fileInputEl.type = 'file'

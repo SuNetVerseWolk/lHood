@@ -5,13 +5,14 @@ import Empty from "./Empty";
 import GlobalSearchItems from "./GlobalSearchItems";
 import axios from "axios"
 import { useQuery } from "@tanstack/react-query";
+import getDataAPI from "../data/getDataAPI";
 
 const FilterList = ({ searchValue, clearSearchValue }) => {
 	const
 	{ param, filter } = useParams(),
 	{ data, isLoading } = useQuery({
-		queryKey: [param, filter],
-		queryFn: () => axios.get(`/api/${param}?filter=${filter != 'all' ? filter : ''}`).then(res => res.data),
+		queryKey: [param, { filter }],
+		queryFn: e => getDataAPI(param, filter),
 		refetchOnWindowFocus: true,
 		refetchOnReconnect: true
 	}),

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import EditSvg from '../../assets/edit.svg?react'
 import AcceptSvg from '../../assets/accept.svg?react'
 import CancelSvg from '../../assets/cross.svg?react'
+import {tools} from '../../styles/tools.module.css'
 
 const Tools = ({
 	isEditable,
@@ -11,7 +12,7 @@ const Tools = ({
 	acceptSaving
 }) => {
 	return (
-		<div>
+		<div className={tools}>
 			{isEditable ? (
 				<>
 					<motion.div

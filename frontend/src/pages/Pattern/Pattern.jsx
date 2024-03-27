@@ -6,6 +6,10 @@ import ScrollList from '../../layouts/ScrollList'
 import Tools from './Tools'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
+import getDataAPI from '../../data/getDataAPI'
+import loadingGif from '/loading.gif'
+import LCard from '../../components/loading/LCard'
+import Navbar from '../../layouts/Navbar'
 
 const Pattern = () => {
 	const navigate = useNavigate();
@@ -14,31 +18,28 @@ const Pattern = () => {
 	const isNew = useMemo(e => value === import.meta.env.VITE_NEWDATAKEY, [value]);
 	const [isEditable, setIsEditable] = useState(value === import.meta.env.VITE_NEWDATAKEY);
 	const [cards, setCards] = useState([]);
-	const { data, isLoading } = useQuery({
+	const { data, isLoading, isPending } = useQuery({
 		queryKey: ['patterns', value],
-		queryFn: () => {
-			if (isNew) return {cards};
-			console.log(value)
-
-			return axios.get(`/api/patterns/${value}`).then(res => {
-				const data = res.data;
-				console.log(data)
-
-				setCards(data?.cards || []);
-
-				return data;
-			})
-		},
-		enabled: !isEditable
+		queryFn: e => getDataAPI(`patterns/${value}`),
+		enabled: !isEditable || !isNew
 	})
 	const [currentCardId, setCurrentCardId] = useState(0);
 	const isNewCardCurrent = useMemo(e => currentCardId === cards?.length, [currentCardId, cards]);
 	const [newCard, setNewCard] = useState({});
 	const [newTip, setNewTip] = useState({});
 
+	console.log('enabled', !isEditable || !isNew)
+	console.log(isLoading, isPending)
+	console.log(cards)
+
 	const image = useMemo(e => {
+		const
+		src = isLoading ? loadingGif : isNewCardCurrent ? newCard?.img : cards[currentCardId]?.img
+
+		//console.log(isEditable)
+
 		return {
-			src: isNewCardCurrent ? newCard?.img : cards[currentCardId]?.img,
+			src,
 			alt: 'Pattern Image',
 			isEditable,
 			currentCardId: currentCardId,
@@ -123,14 +124,18 @@ const Pattern = () => {
 		}
 	}, [newCard]);
 
+	useEffect(e => setCards(data?.cards || []), [data]);
+
 	return (
 		<div id='fullSize' className={pattern}>
-			<Tools
-				isEditable={isEditable}
-				setIsEditable={setIsEditable}
-				cancelSaving={cancelSaving}
-				acceptSaving={acceptSaving}
-			/>
+			{!isLoading && (
+				<Tools
+					isEditable={isEditable}
+					setIsEditable={setIsEditable}
+					cancelSaving={cancelSaving}
+					acceptSaving={acceptSaving}
+				/>
+			)}
 
 			<Image {...image} />
 			
@@ -147,6 +152,7 @@ const Pattern = () => {
 						setNewItem={setNewCard}
 						removeItem={getRidOfCard}
 						setCurrentId={setCurrentCardId}
+						isLoading={isLoading}
 					/>
 				</div>
 				<div>
@@ -157,6 +163,7 @@ const Pattern = () => {
 						isEditable={isEditable}
 						removeItem={getRidOfTip}
 						items={isNewCardCurrent ? newCard?.tips : cards[currentCardId]?.tips}
+						isLoading={isLoading}
 					/>
 				</div>
 			</div>

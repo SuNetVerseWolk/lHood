@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import Card from './Card'
 import { scrollList } from '../styles/scrollList.module.css'
+import LCard from '../components/loading/LCard';
 
 const ScrollList = ({
 	type,
@@ -12,7 +13,8 @@ const ScrollList = ({
 	setNewItem,
 	removeItem,
 	isEditable,
-	setCurrentId
+	setCurrentId,
+	isLoading
 }) => {
 	const ref = useRef();
 
@@ -30,6 +32,7 @@ const ScrollList = ({
 
 	return (
 		<div ref={ref} data-type={type} className={scrollList} onScroll={getCurrentCardId}>
+			{isLoading && <LCard isMain={isMain}/>}
 			{isEditable && (
 				<Card
 					data={newItem}

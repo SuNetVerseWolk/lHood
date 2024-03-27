@@ -7,25 +7,6 @@
 		translate: 0 calc(-5svh - 10vw);
 	}
 
-	> :nth-child(1) {
-		display: flex;
-		flex-flow: column nowrap;
-		gap: var(--sPadding);
-		
-		position: absolute;
-		top: .5svh;
-		right: 2.5vw;
-		width: 10vw;
-
-		svg {
-			width: inherit;
-			stroke: #fff;
-			padding: var(--padding);
-			border-radius: var(--padding);
-			background-color: var(--itemBg);
-		}
-	}
-
 	> img {
 		display: block;
 		width: 100%;
@@ -35,7 +16,7 @@
 	}
 
 	> div {
-		> h2 {
+		h2 {
 			text-align: center;
 			margin-block: var(--lPadding);
 		}

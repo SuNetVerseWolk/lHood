@@ -1,0 +1,18 @@
+.tools {
+	display: flex;
+	flex-flow: column nowrap;
+	gap: var(--sPadding);
+	
+	position: absolute;
+	top: .5svh;
+	right: 2.5vw;
+	width: 10vw;
+
+	svg {
+		width: inherit;
+		stroke: #fff;
+		padding: var(--padding);
+		border-radius: var(--padding);
+		background-color: var(--itemBg);
+	}
+}
