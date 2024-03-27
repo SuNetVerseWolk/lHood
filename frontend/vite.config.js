@@ -9,8 +9,8 @@ export default defineConfig({
 		host: true,
 		proxy: {
 			'/api': {
-				target: 'http://localhost:3001',
-				//target: 'https://lhood.onrender.com',
+				//target: 'http://localhost:3001',
+				target: 'https://lhood.onrender.com',
 				changeOrigin: true,
 				rewrite: path => path.replace(/^\/api/, ''),
 			},
