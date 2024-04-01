@@ -7,8 +7,9 @@ const
 	{ setData, getData, getNewItem, getFilteredData } = require('./getScripts');
 
 app.use(cors());
-app.use(express.json({limit: '10mb'}));
+app.use(express.json({limit: '100mb'}));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('./data/uploads/'));
 
 
 dataPaths.forEach(dataPath => {
@@ -16,6 +17,7 @@ dataPaths.forEach(dataPath => {
 		const
 		filter = req.query?.filter,
 		data = getData(dataPath);
+		console.log(filter)
 
 		res.json(getFilteredData(data, filter, dataPath))
 	});
@@ -23,10 +25,14 @@ dataPaths.forEach(dataPath => {
 	app.post(`/${dataPath}`, (req, res) => {
 		const
 		newItem = getNewItem(req, res),
-		data = getData(dataPath)
+		data = getData(dataPath);
 
 		data.push(newItem);
-		!setData(dataPath, data) && res.status(500).send(false);
+
+		if (!setData(dataPath, data)) {
+			res.status(500).send(false);
+			return;
+		};
 
 		res.json(newItem.id);
 	});
@@ -53,7 +59,7 @@ app.get(`/patterns/:value`, (req, res) => {
 	let data = getData('patterns');
 
 	data = data.find(pattern =>
-		pattern.cards.some(card =>
+		pattern?.cards.some(card =>
 			card.value === req.params.value
 		)
 	);

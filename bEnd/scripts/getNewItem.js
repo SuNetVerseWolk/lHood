@@ -1,12 +1,28 @@
+const upload = require("./upload");
+
 const getNewItem = (req, res) => {
 	const newItem = req.body;
 
-	if (!Object.keys(newItem).length) {
+	if (!newItem?.cards?.length) {
 		res.status(100)
 		return;
 	}
+	
+	newItem.id = Date.now();
 
-	newItem.id = new Date().getTime().toString();
+	newItem.cards.forEach(card => {
+		card.id = Date.now();
+
+		const
+		imgData = card.img.data,
+		imgName = `${card.id}.${card.img.extname}`;
+
+		card.img = { src: `/api/${imgName}` };
+		upload(imgName, imgData);
+		
+		card?.items?.forEach(item => item.id = Date.now());
+	})
+
 	return newItem;
 };
 

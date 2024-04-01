@@ -25,11 +25,11 @@ const getFilteredData = (data, filter, type) => {
 			case "patterns":
 				data.forEach(pattern =>
 					filteredData.push(
-						...pattern.cards.map(card =>
+						...pattern?.cards.map(card =>
 							({
-								id: card.id,
-								value: card.value,
-								img: card.img
+								id: card?.id,
+								value: card?.value,
+								img: card?.img
 							})
 				)));
 				break;

@@ -3,7 +3,11 @@ const getFileResult = (file) => {
 
 	fileReader.readAsDataURL(file);
 	return new Promise((resolve) => {
-		fileReader.onload = (e) => resolve(fileReader.result);
+		fileReader.onload = (e) => resolve({
+			data: fileReader.result,
+			src: fileReader.result,
+			extname: file.name.split('.').pop(),
+		});
 	}).then(r => r);
 }
 

@@ -34,9 +34,7 @@ const Pattern = () => {
 
 	const image = useMemo(e => {
 		const
-		src = isLoading ? loadingGif : isNewCardCurrent ? newCard?.img : cards[currentCardId]?.img
-
-		//console.log(isEditable)
+		src = isLoading ? loadingGif : isNewCardCurrent ? newCard?.img?.src : cards[currentCardId]?.img?.src;
 
 		return {
 			src,
@@ -64,7 +62,7 @@ const Pattern = () => {
 		onSuccess: e => {
 			setIsEditable(false);
 			setCurrentCardId(prev => prev === cards.length ? 0 : prev);
-			//navigate(`/lHood/patterns/${cards[0].value}`, {replace: true});
+			navigate(`/lHood/patterns/${cards[0].value}`, {replace: true});
 		}
 	});
 

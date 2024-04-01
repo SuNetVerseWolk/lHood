@@ -9,8 +9,9 @@ const Image = ({ src, alt, setImage, isEditable }) => {
 		try {
 			const fileInputEl = document.createElement('input')
 			fileInputEl.type = 'file'
-			fileInputEl.onchange = async e =>
+			fileInputEl.onchange = async e => {
 				setImage(await getFileResult(e.target.files[0]))
+			}
 
 			fileInputEl.click()
 
