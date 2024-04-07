@@ -3,6 +3,5 @@
 	+ when I save img like jpeg It doesn't save
 
 - frontend
-+ fix added text's height
 + make new pattern only if all is filled
 + add clickabale words

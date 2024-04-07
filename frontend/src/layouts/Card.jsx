@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { motion } from "framer-motion";
 import RightArrowSvg from "../assets/rightArrow.svg?react";
 import ClearTSvg from "../assets/clearText.svg?react";
@@ -15,22 +15,20 @@ const Card = ({
 	isEditable,
 	saveNewData
 }) => {
-	const levels = useMemo(
-		(e) => JSON.parse(import.meta.env.VITE_CardLevels),
-		[],
-	);
-	const types = useMemo(
-		(e) => JSON.parse(import.meta.env.VITE_CardTypeOfValue),
-		[],
-	);
+	const
+	levels = useMemo((e) => JSON.parse(import.meta.env.VITE_CardLevels), []),
+	types = useMemo((e) => JSON.parse(import.meta.env.VITE_CardTypeOfValue), []),
+	textareas = [useRef(), useRef()];
+	const setScrollHeight = (el) => {
+		el.style.height = "auto";
+		el.style.height = `${el.scrollHeight}px`;
+	}
 
 	const changeData = (e) => {
 		const el = e.target;
 
-		if (el.localName === "textarea") {
-			el.style.height = "auto";
-			el.style.height = `${el.scrollHeight}px`;
-		}
+		if (el.localName === "textarea")
+			setScrollHeight(el);
 
 		setData((prev) => {
 			if (!saveNewData) {
@@ -56,8 +54,6 @@ const Card = ({
 	const handleRightArrow = (e) => {
 		saveNewData((prev) => {
 			prev[index] = { ...data, id: new Date().getTime() };
-			//console.log("Prev", prev);
-			//console.log("NewChild", newChild);
 
 			if (newChild && Object.keys(newChild).length) {
 				const newTip = {...newChild, id: new Date().getTime()};
@@ -68,6 +64,12 @@ const Card = ({
 			return [...prev];
 		});
 	};
+
+	useEffect(e => {
+		textareas.forEach(textarea => {
+			setScrollHeight(textarea.current);
+		})
+	}, []);
 
 	return (
 		<motion.div
@@ -150,6 +152,7 @@ const Card = ({
 			)}
 
 			<textarea
+				ref={textareas[0]}
 				name="description"
 				className={styles.description}
 				value={data?.description || ""}
@@ -159,6 +162,7 @@ const Card = ({
 			/>
 
 			<textarea
+				ref={textareas[1]}
 				name="example"
 				className={styles.example}
 				value={data?.example || ""}

@@ -144,6 +144,7 @@
 			}
 			.description {
 				font-size: 1.2rem;
+				margin-bottom: 2.5svh;
 			}
 			.example {
 				font-size: 1rem;
