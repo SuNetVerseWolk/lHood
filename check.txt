@@ -3,5 +3,6 @@
 	+ when I save img like jpeg It doesn't save
 
 - frontend
-+ when I add first tip it adds to the new Card and to the card that was created
++ fix added text's height
 + make new pattern only if all is filled
++ add clickabale words

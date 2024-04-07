@@ -28,9 +28,9 @@ const Pattern = () => {
 	const [newCard, setNewCard] = useState({});
 	const [newTip, setNewTip] = useState({});
 
-	console.log('enabled', !isEditable || !isNew)
-	console.log(isLoading, isPending)
-	console.log(cards)
+	//console.log('enabled', !isEditable || !isNew)
+	//console.log(isLoading, isPending)
+	//console.log(cards)
 
 	const image = useMemo(e => {
 		const
@@ -79,6 +79,13 @@ const Pattern = () => {
 		setCurrentCardId(prev => prev === cards.length ? 0 : prev);
 	}
 
+	const makeCards = (cards) => {
+		//console.log('make', cards, newTip, defaultCardValue)
+		setCards(cards);
+		setNewTip({});
+		setNewCard({...defaultCardValue});
+		setCurrentCardId(prev => prev + 1);
+	}
 	const setTip = (calback) => {
 		if (isNewCardCurrent)
 			setNewCard(prev => ({
@@ -112,17 +119,20 @@ const Pattern = () => {
 		})
 	}
 
-	useEffect(e => {
-		if (!Object.keys(newCard).length) {
-			setNewCard(defaultCardValue);
-			setNewTip({});
+	//useEffect(e => {
+	//	console.log(!Object.keys(newCard).length)
+	//	if (!Object.keys(newCard).length) {
+	//		setNewTip({});
+	//		setNewCard({...defaultCardValue});
+	//		console.log(newCard)
 
-			if (cards.length)
-				setCurrentCardId(prev => prev + 1);
-		}
-	}, [newCard]);
+	//		if (cards.length)
+	//			setCurrentCardId(prev => prev + 1);
+	//	}
+	//}, [newCard]);
 
 	useEffect(e => setCards(data?.cards || []), [data]);
+	//console.log('newCard', newCard)
 
 	return (
 		<div id='fullSize' className={pattern}>
@@ -145,7 +155,7 @@ const Pattern = () => {
 						isMain={true}
 						newItem={newCard}
 						newChild={newTip}
-						saveItem={setCards}
+						saveItem={makeCards}
 						isEditable={isEditable}
 						setNewItem={setNewCard}
 						removeItem={getRidOfCard}

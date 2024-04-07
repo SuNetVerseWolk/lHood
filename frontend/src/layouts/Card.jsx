@@ -56,8 +56,8 @@ const Card = ({
 	const handleRightArrow = (e) => {
 		saveNewData((prev) => {
 			prev[index] = { ...data, id: new Date().getTime() };
-			console.log("Prev", prev);
-			console.log("NewChild", newChild);
+			//console.log("Prev", prev);
+			//console.log("NewChild", newChild);
 
 			if (newChild && Object.keys(newChild).length) {
 				const newTip = {...newChild, id: new Date().getTime()};
