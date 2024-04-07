@@ -1,0 +1,7 @@
+- bend
++ correct saving img
+	+ when I save img like jpeg It doesn't save
+
+- frontend
++ when I add first tip it adds to the new Card and to the card that was created
++ make new pattern only if all is filled

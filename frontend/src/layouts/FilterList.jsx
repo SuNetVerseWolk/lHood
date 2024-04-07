@@ -12,7 +12,13 @@ const FilterList = ({ searchValue, clearSearchValue }) => {
 	{ param, filter } = useParams(),
 	{ data, isLoading } = useQuery({
 		queryKey: [param, { filter }],
-		queryFn: e => getDataAPI(param, filter),
+		queryFn: e => getDataAPI(param, filter).then(data => {
+			data = data.filter((obj, index, self) =>
+				index === self.findIndex((o) =>
+					( o.value === obj.value && o.IPA === obj.IPA && o.description === obj.description )))
+
+			return data.sort((a, b) => a.value.localeCompare(b.value))
+		}),
 		refetchOnWindowFocus: true,
 		refetchOnReconnect: true
 	}),
@@ -37,8 +43,6 @@ const FilterList = ({ searchValue, clearSearchValue }) => {
 			}
 		)
 	}, [searchValue, param, filter, data]);
-
-	//console.log(data, param, filter)
 
 	let id = useMemo(e => searchValue.slice(1), [searchValue]);
 	let mark = useMemo(e => searchValue[0], [searchValue]);
