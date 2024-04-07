@@ -42,6 +42,7 @@ const Pattern = () => {
 			isEditable,
 			currentCardId: currentCardId,
 			setImage: (img) => {
+				console.log(img)
 				if (isNewCardCurrent)
 					setNewCard(prev => ({ ...prev, img }));
 				else

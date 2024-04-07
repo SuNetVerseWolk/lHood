@@ -1,6 +1,4 @@
 - bend
-+ correct saving img
-	+ when I save img like jpeg It doesn't save
 + fix changing pattern
 
 - frontend

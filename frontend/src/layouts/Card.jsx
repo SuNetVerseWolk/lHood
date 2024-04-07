@@ -43,9 +43,9 @@ const Card = ({
 
 	const handleClear = (e) => {
 		setData((prev) => {
-			let clearedData = { value: "", description: "", example: "" };
+			let clearedData = { value: '', description: '', example: '' };
 
-			if (prev.IPA) clearedData = { ...clearedData, IPA: "" };
+			if (prev.IPA) clearedData = { ...clearedData, IPA: '' };
 
 			return { ...prev, ...clearedData };
 		});
@@ -66,10 +66,11 @@ const Card = ({
 	};
 
 	useEffect(e => {
-		textareas.forEach(textarea => {
-			setScrollHeight(textarea.current);
-		})
-	}, []);
+		if (isEditable)
+			textareas.forEach(textarea => {
+				setScrollHeight(textarea.current);
+			})
+	}, [isEditable]);
 
 	return (
 		<motion.div
@@ -119,7 +120,7 @@ const Card = ({
 				name="value"
 				placeholder="Value"
 				disabled={!isEditable}
-				value={data?.value || ""}
+				value={data?.value || ''}
 				onInput={changeData}
 			/>
 
@@ -132,7 +133,7 @@ const Card = ({
 							type="text"
 							disabled={!isEditable}
 							placeholder="transcription"
-							value={data?.IPA || ""}
+							value={data?.IPA || ''}
 							onInput={changeData}
 						/>
 						<select
@@ -151,25 +152,40 @@ const Card = ({
 				</>
 			)}
 
-			<textarea
-				ref={textareas[0]}
-				name="description"
-				className={styles.description}
-				value={data?.description || ""}
-				disabled={!isEditable}
-				placeholder="Write a description..."
-				onInput={changeData}
-			/>
+			{isEditable ? (
+				<>
+					<textarea
+						ref={textareas[0]}
+						name="description"
+						className={styles.description}
+						value={data?.description || ''}
+						placeholder="Write a description..."
+						onInput={changeData}
+					/>
 
-			<textarea
-				ref={textareas[1]}
-				name="example"
-				className={styles.example}
-				value={data?.example || ""}
-				disabled={!isEditable}
-				placeholder="Write an example..."
-				onInput={changeData}
-			/>
+					<textarea
+						ref={textareas[1]}
+						name="example"
+						className={styles.example}
+						value={data?.example || ''}
+						placeholder="Write an example..."
+						onInput={changeData}
+					/>
+				</>
+			) : (
+				<>
+					<p
+						className={styles.description}
+					>
+						{data?.description || ''}
+					</p>
+					<p
+						className={styles.example}
+					>
+						{data?.example || ''}
+					</p>
+				</>
+			)}
 		</motion.div>
 	);
 };
