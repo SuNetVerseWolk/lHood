@@ -12,6 +12,6 @@
 	}
 
 	&[data-type="card"] > div {
-		height: 57svh;
+		min-height: 57svh;
 	}
 }

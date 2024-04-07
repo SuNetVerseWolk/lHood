@@ -1,7 +1,10 @@
 - bend
 + correct saving img
 	+ when I save img like jpeg It doesn't save
++ fix changing pattern
 
 - frontend
 + make new pattern only if all is filled
 + add clickabale words
++ make changing state of learning
++ make removing for all like pattern or people etc.

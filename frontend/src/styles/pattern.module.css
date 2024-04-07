@@ -69,6 +69,10 @@
 
 			&:has(#rightArrow) {
 				margin-right: var(--padding);
+				
+				textarea {
+					padding-right: calc(var(--padding) * 2);
+				}
 			}
 
 			.ridBtn, #rightArrow {
@@ -148,7 +152,6 @@
 			}
 			.example {
 				font-size: 1rem;
-				width: 95%;
 			}
 		}
 	}
