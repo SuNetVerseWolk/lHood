@@ -6,3 +6,4 @@
 + add clickabale words
 + make changing state of learning
 + make removing for all like pattern or people etc.
++ make another view of items in filter
