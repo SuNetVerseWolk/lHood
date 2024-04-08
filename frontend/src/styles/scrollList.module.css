@@ -4,7 +4,7 @@
 	gap: var(--padding);
 	scroll-snap-type: x mandatory;
 	scroll-snap-align: start;
-	padding-top: 10vw;
+	padding-bottom: 2.5vw;
 	overflow-x: scroll;
 
 	&::-webkit-scrollbar {
@@ -12,6 +12,6 @@
 	}
 
 	&[data-type="card"] > div {
-		min-height: 57svh;
+		min-height: 55svh;
 	}
 }

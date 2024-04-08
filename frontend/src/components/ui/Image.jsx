@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import getFileResult from '../../utils/getFileResult';
+import addImageSrc from '/addImage.gif';
+import noImageSrc from '/noImage.webp';
 
 const Image = ({ src, alt, setImage, isEditable }) => {
+	const resrc = useMemo(e => isEditable ? addImageSrc : noImageSrc, [isEditable, src])
 	const handleImage = async e => {
 		if (!isEditable)
 			return null;
@@ -19,13 +22,15 @@ const Image = ({ src, alt, setImage, isEditable }) => {
 			console.log(error);
 		}
 	}
+	console.log(addImageSrc, src)
 
 	return (
 		<>
 			<img
-				src={src}
+				src={src || resrc}
 				alt={alt || 'img'}
 				onClick={handleImage}
+				onError={(e) => e.target.src = resrc}
 			/>
 		</>
 	)

@@ -4,15 +4,13 @@
 	height: 100%;
 
 	> *:not(img, :nth-child(1)) {
-		translate: 0 calc(-5svh - 10vw);
+		translate: 0 calc(var(--lPadding) * -1.5);
 	}
 
 	> img {
-		display: block;
 		width: 100%;
 		height: 30svh;
-		background: #fff url('/addImage.png') 50% 50% no-repeat;
-		background-size: 50%;
+		object-fit: fill;
 	}
 
 	> div {

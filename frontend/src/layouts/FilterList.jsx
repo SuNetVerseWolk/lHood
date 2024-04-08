@@ -34,7 +34,7 @@ const FilterList = ({ searchValue, clearSearchValue }) => {
 					<Item
 						id={id}
 						key={id}
-						img={img.src}
+						img={img?.src}
 						value={value}
 						isAvatarPhotoShown={param === 'patterns' ? false : true }
 						i={param === 'patterns' && filter === 'all' ? i + 3 : i + 2}
