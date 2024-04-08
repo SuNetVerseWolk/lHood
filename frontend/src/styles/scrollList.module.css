@@ -1,10 +1,10 @@
 .scrollList {
 	display: flex;
+	padding-top: 5vw;
 	padding-inline: var(--lPadding);
 	gap: var(--padding);
 	scroll-snap-type: x mandatory;
 	scroll-snap-align: start;
-	padding-bottom: 2.5vw;
 	overflow-x: scroll;
 
 	&::-webkit-scrollbar {

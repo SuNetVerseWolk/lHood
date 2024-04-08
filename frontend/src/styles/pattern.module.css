@@ -4,7 +4,7 @@
 	height: 100%;
 
 	> *:not(img, :nth-child(1)) {
-		translate: 0 calc(var(--lPadding) * -1.5);
+		translate: 0 calc(var(--lPadding) * -2.5);
 	}
 
 	> img {
