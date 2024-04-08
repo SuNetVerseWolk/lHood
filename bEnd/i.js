@@ -68,13 +68,12 @@ app.get(`/patterns/:value`, (req, res) => {
 });
 
 app.post('/patterns/:id', (req, res) => {
-	let data = getData('patterns');
+	const
+	data = getData('patterns'),
+	pattern = data.find(pattern => pattern.id === +req.params.id);
 
-	data.forEach(pattern => {
-		if (pattern.id === req.params.id) {
-			pattern.cards = req.body;
-		}
-	})
+	if (!pattern) return res.status(404).json(false);
+	pattern.cards = req.body;
 
 	setData('patterns', data);
 	res.json(true);

@@ -57,7 +57,7 @@ const Pattern = () => {
 
 	const { mutate, error } = useMutation({
 		mutationFn: ({api, value}) => {
-			axios.post(`/api/patterns${api}`, value);
+			axios.post(`/api/patterns${api}`, value).then(data => console.log(data));
 		},
 		onError: error => console.log(error),
 		onSuccess: e => {
