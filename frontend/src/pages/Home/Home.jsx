@@ -4,10 +4,11 @@ import { isDeviceType } from '../../services/checkDeviceType'
 import Header from './layouts/Header'
 import Avatar from '../../components/Avatar'
 import NavMenu from './layouts/NavMenu'
+import style from '../../styles/menu.module.css'
 
 const Home = ({searchValue, setSearchValue}) => {
 	const deviceType = isDeviceType();
-	const avatarEl = <Avatar href={'menu'} shouldIsShown={true} />;
+	const avatarEl = <Avatar href='menu' shouldIsShown={true} />;
 
 	return (
 		<>

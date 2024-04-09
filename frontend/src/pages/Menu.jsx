@@ -1,14 +1,30 @@
-import React from 'react'
-import Empty from '../layouts/Empty';
+import React, { useState } from 'react'
+import RegistrationForm from '../components/form/SignForm'
+import { useQuery } from '@tanstack/react-query'
+import Empty from '../layouts/Empty'
 
 const Menu = () => {
-	const data = null;
+	const
+		[userID, setUserID] = useState(localStorage.getItem('userID')),
+		data = useQuery({
+			queryKey: [userID],
+			queryFn: async (userId) => {
+				return await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
+					.then((res) => res.json())
+			}
+		})
 
 	return (
 		<>
-			{data ? <div id="menuPage">
+			{userID ? (
+				data ? (
+					<div id="menuPage">
 
-			</div> : <Empty>Menu</Empty>}
+					</div>
+				) : (
+					<Empty>Loading...</Empty>
+				)
+			) : <RegistrationForm setUserID={setUserID} />}
 		</>
 	)
 }

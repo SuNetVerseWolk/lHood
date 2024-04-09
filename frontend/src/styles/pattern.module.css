@@ -136,9 +136,6 @@
 				> select {
 					text-align: end;
 				}
-				> select:disabled {
-					/*inset: unset;*/
-				}
 
 				#type {
 					margin-left: auto;

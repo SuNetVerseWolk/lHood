@@ -38,6 +38,7 @@ const App = () => {
 						/>
 					</Route>
 					<Route path='menu' element={<Menu />} />
+					{/*<Route path='menu/:signType' element={<Menu />} />*/}
 				</Route>
 			</Routes>
 		</>
