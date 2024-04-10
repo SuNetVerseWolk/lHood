@@ -6,8 +6,7 @@ import noImageSrc from '/noImage.webp';
 const Image = ({ src, alt, setImage, isEditable }) => {
 	const resrc = useMemo(e => isEditable ? addImageSrc : noImageSrc, [isEditable, src])
 	const handleImage = async e => {
-		if (!isEditable)
-			return null;
+		if (!isEditable) return;
 
 		try {
 			const fileInputEl = document.createElement('input')

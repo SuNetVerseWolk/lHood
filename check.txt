@@ -3,6 +3,7 @@
 + make logout
 
 - frontend
++ make Allert
 + make check for fill over cards
 + add clickabale words
 + make changing state of learning

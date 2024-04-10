@@ -3,10 +3,8 @@ const upload = require("./upload");
 const getNewItem = (req, res) => {
 	const newItem = req.body;
 
-	if (!newItem?.cards?.length) {
-		res.status(100)
-		return;
-	}
+	if (!newItem?.cards?.length)
+		return res.status(100).json(false);
 	
 	newItem.id = Date.now();
 

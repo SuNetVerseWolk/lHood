@@ -13,7 +13,9 @@
 			{
 				"id": 17429471986,
 				"name": "userName",
+				"email": "user@example.com",
 				"avatar": "path",
+				"password": "aljdghq233",
 				"communities": [7932758687],
 				"friends": [13648762],
 				"patterns": [975918798]
