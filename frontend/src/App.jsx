@@ -3,12 +3,12 @@ import { useState } from 'react';
 import './App.css'
 import Home from './pages/Home/Home'
 import Recall from './pages/Recall';
-import Menu from './pages/Menu';
 import Person from './pages/Person';
 import Search from './pages/Search'
 import { isDeviceType } from './services/checkDeviceType';
 import Pattern from './pages/Pattern/Pattern';
 import Logined from './features/authentication/components/Logined';
+import Profile from './pages/Profile';
 
 const App = () => {
 	const [searchValue, setSearchValue] = useState('');
@@ -37,7 +37,7 @@ const App = () => {
 							}
 						/>
 					</Route>
-					<Route path='menu' element={<Menu />} />
+					<Route path='profile' element={<Profile />} />
 					{/*<Route path='menu/:signType' element={<Menu />} />*/}
 				</Route>
 			</Routes>

@@ -1,13 +1,13 @@
 import React, { useEffect, useMemo, useRef } from 'react'
 import { motion } from 'framer-motion'
-import style, { registrationForm } from '../../styles/registrationForm.module.css'
+import style, { signForm } from '../../styles/signForm.module.css'
 import { NavLink, useSearchParams } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 
 const handleInput = e => e.target.setCustomValidity('');
 
-function RegistrationForm({ setUserID }) {
+function SignForm({ setUserID }) {
 	const
 		[searchParams] = useSearchParams(),
 		types = useMemo(e => ['in', 'up'], []),
@@ -53,8 +53,7 @@ function RegistrationForm({ setUserID }) {
 			confirmPasswordRef.current.setCustomValidity('Passwords isn\'t the same!')
 			return confirmPasswordRef.current.reportValidity();
 		}
-		
-		console.log(1)
+
 		mutate(Object.fromEntries(new FormData(e.target).entries()));
 	}
 
@@ -66,7 +65,7 @@ function RegistrationForm({ setUserID }) {
 
 	return (
 		<motion.form
-			id={registrationForm}
+			id={signForm}
 			animate={{ scale: 1 }}
 			initial={{ scale: .9 }}
 			onSubmit={handleSubmit}
@@ -109,9 +108,9 @@ function RegistrationForm({ setUserID }) {
 			)}
 			<motion.button whileTap={{ scale: .9 }}>{type}</motion.button>
 
-			<NavLink to={`../menu?signType=${nextType}`} id={style.up}>{nextType}</NavLink>
+			<NavLink to={`../profile?signType=${nextType}`} id={style.up}>{nextType}</NavLink>
 		</motion.form>
 	)
 }
 
-export default RegistrationForm
+export default SignForm

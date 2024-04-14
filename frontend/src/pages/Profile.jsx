@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
-import RegistrationForm from '../components/form/SignForm'
+import SignForm from '../components/form/SignForm'
 import { useQuery } from '@tanstack/react-query'
 import Empty from '../layouts/Empty'
-import axios from 'axios'
 import getDataAPI from '../data/getDataAPI'
 
-const Menu = () => {
+const Profile = () => {
 	const
 		[userID, setUserID] = useState(localStorage.getItem('userID')),
 		{data} = useQuery({
 			queryKey: [userID],
-			queryFn: e => getDataAPI(`person/${userID}`)
+			queryFn: e => userID && getDataAPI(`person/${userID}`)
 		})
 
 	return (
@@ -24,9 +23,9 @@ const Menu = () => {
 				) : (
 					<Empty>Loading...</Empty>
 				)
-			) : <RegistrationForm setUserID={setUserID} />}
+			) : <SignForm setUserID={setUserID} />}
 		</>
 	)
 }
 
-export default Menu;
+export default Profile;
