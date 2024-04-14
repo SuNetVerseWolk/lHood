@@ -57,6 +57,7 @@ header {
 }
 main {
 	display: flex;
+	flex-direction: column;
 	background-color: var(--mainBg);
 	overflow-y: hidden;
 }
