@@ -3,11 +3,14 @@ import SignForm from '../components/form/SignForm'
 import { useQuery } from '@tanstack/react-query'
 import Empty from '../layouts/Empty'
 import getDataAPI from '../data/getDataAPI'
+import Image, { fonImage } from '../components/ui/Image'
+import { profile, avatar, user } from 'styles/profile.module.css'
+import Avatar from 'components/Avatar'
 
 const Profile = () => {
 	const
 		[userID, setUserID] = useState(localStorage.getItem('userID')),
-		{data} = useQuery({
+		{ data, isLoading } = useQuery({
 			queryKey: [userID],
 			queryFn: e => userID && getDataAPI(`person/${userID}`)
 		})
@@ -15,13 +18,18 @@ const Profile = () => {
 	return (
 		<>
 			{userID ? (
-				data ? (
-					<div id="menuPage">
-						<h1>{data.name}</h1>
-						<code>{JSON.stringify(data)}</code>
-					</div>
-				) : (
+				isLoading ? (
 					<Empty>Loading...</Empty>
+				) : (
+					<>
+						<Image src={data.fon} style={fonImage} isEditable={true} alt='profileFon' />
+						<div className={profile}>
+							<div className={user}>
+								<h1>{data.name}</h1>
+								<Avatar style={avatar} src={data.avatar} shouldIsShown={true}/>
+							</div>
+						</div>
+					</>
 				)
 			) : <SignForm setUserID={setUserID} />}
 		</>

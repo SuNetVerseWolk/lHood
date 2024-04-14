@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { pattern } from '../../styles/pattern.module.css'
-import Image from '../../components/ui/Image'
+import Image, { fonImage } from '../../components/ui/Image'
 import ScrollList from '../../layouts/ScrollList'
 import Tools from './Tools'
 import { useMutation, useQuery } from '@tanstack/react-query'
@@ -28,15 +28,16 @@ const Pattern = () => {
 
 	const image = useMemo(e => {
 		const
-			src = isLoading ? loadingGif : isNewCardCurrent ? newCard?.img?.src : cards[currentCardId]?.img?.src;
+			src = isLoading ? loadingGif : isNewCardCurrent ? newCard?.img?.src : cards[currentCardId]?.img?.src,
+			style = fonImage
 
 		return {
 			src,
-			alt: 'Pattern Image',
+			style,
 			isEditable,
+			alt: 'Pattern Image',
 			currentCardId: currentCardId,
 			setImage: (img) => {
-				console.log(img)
 				if (isNewCardCurrent)
 					setNewCard(prev => ({ ...prev, img }));
 				else

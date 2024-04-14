@@ -2,8 +2,9 @@ import React, { useMemo } from 'react'
 import getFileResult from '../../utils/getFileResult';
 import addImageSrc from '/addImage.gif';
 import noImageSrc from '/noImage.webp';
+export { fonImage } from '../../styles/fonImage.module.css'
 
-const Image = ({ src, alt, setImage, isEditable }) => {
+const Image = ({ src, style, alt, setImage, isEditable }) => {
 	const resrc = useMemo(e => isEditable ? addImageSrc : noImageSrc, [isEditable, src])
 	const handleImage = async e => {
 		if (!isEditable) return;
@@ -21,11 +22,11 @@ const Image = ({ src, alt, setImage, isEditable }) => {
 			console.log(error);
 		}
 	}
-	console.log(addImageSrc, src)
 
 	return (
 		<>
 			<img
+				className={style}
 				src={src || resrc}
 				alt={alt || 'img'}
 				onClick={handleImage}

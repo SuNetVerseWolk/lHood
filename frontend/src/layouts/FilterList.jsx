@@ -3,31 +3,31 @@ import { useParams } from "react-router-dom";
 import Item from "../components/Item";
 import Empty from "./Empty";
 import GlobalSearchItems from "./GlobalSearchItems";
-import axios from "axios"
 import { useQuery } from "@tanstack/react-query";
 import getDataAPI from "../data/getDataAPI";
+import { filterList } from "styles/filter.module.css"
 
 const FilterList = ({ searchValue, clearSearchValue }) => {
 	const
-	{ param, filter } = useParams(),
-	{ data, isLoading } = useQuery({
-		queryKey: [param, { filter }],
-		queryFn: e => getDataAPI(param, filter).then(data => {
-			data = data.filter((obj, index, self) =>
-				index === self.findIndex((o) =>
-					( o.value === obj.value && o.IPA === obj.IPA && o.description === obj.description )))
+		{ param, filter } = useParams(),
+		{ data, isLoading } = useQuery({
+			queryKey: [param, { filter }],
+			queryFn: e => getDataAPI(param, filter).then(data => {
+				data = data.filter((obj, index, self) =>
+					index === self.findIndex((o) =>
+						(o.value === obj.value && o.IPA === obj.IPA && o.description === obj.description)))
 
-			return data.sort((a, b) => a.value.localeCompare(b.value))
+				return data.sort((a, b) => a.value.localeCompare(b.value))
+			}),
+			refetchOnWindowFocus: true,
+			refetchOnReconnect: true
 		}),
-		refetchOnWindowFocus: true,
-		refetchOnReconnect: true
-	}),
-	sortedData = useMemo(e => {
-		const sortedData = data?.filter(item =>
-			item.value?.toLowerCase().includes(searchValue)
-		);
+		sortedData = useMemo(e => {
+			const sortedData = data?.filter(item =>
+				item.value?.toLowerCase().includes(searchValue)
+			);
 
-		return sortedData?.map((item, i) => {
+			return sortedData?.map((item, i) => {
 				const { value, img, id } = item || {};
 
 				return (
@@ -36,13 +36,13 @@ const FilterList = ({ searchValue, clearSearchValue }) => {
 						key={id}
 						img={img?.src}
 						value={value}
-						isAvatarPhotoShown={param === 'patterns' ? false : true }
+						isAvatarPhotoShown={param === 'patterns' ? false : true}
 						i={param === 'patterns' && filter === 'all' ? i + 3 : i + 2}
 					/>
 				);
 			}
-		)
-	}, [searchValue, param, filter, data]);
+			)
+		}, [searchValue, param, filter, data]);
 
 	let id = useMemo(e => searchValue.slice(1), [searchValue]);
 	let mark = useMemo(e => searchValue[0], [searchValue]);
@@ -98,7 +98,7 @@ const FilterList = ({ searchValue, clearSearchValue }) => {
 		isLoading ? (
 			<Empty children="Loading..." />
 		) : (
-			<div id="filterList">
+			<div id="filterList" className={filterList}>
 				<GlobalSearchItems
 					search={filter}
 					mark={mark}

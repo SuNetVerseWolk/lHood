@@ -14,9 +14,12 @@
 }
 .avatar {
 	display: block;
-	border-radius: 100%;
-	height: 100%;
-	aspect-ratio: 1;
+
+	img {
+		border-radius: 100%;
+		height: 100%;
+		aspect-ratio: 1;
+	}
 }
 .active {
 	color: var(--activeColor);
@@ -37,57 +40,6 @@
     user-select: none;
 	}
 }
-#searcherBox {
-	> div {
-		height: 100%;
-
-		> svg {
-			height: inherit;
-			fill: var(--gonnaLearnColor);
-			background-color: var(--bgBlack);
-			padding: var(--padding);
-
-			&:last-child {
-				border-radius: 0 .7rem .7rem 0;
-			}
-		}
-	}
-
-	#searcher {
-		display: flex;
-		position: relative;
-		font-size: 20px;
-		width: 100%;
-		border-radius: .7rem;
-
-		> input {
-			width: inherit;
-			border-radius: inherit;
-			padding: var(--padding) var(--lPadding);
-			background: var(--bgBlack);
-			color: #fff;
-			font-size: inherit;
-		}
-
-		> svg {
-			position: absolute;
-			top: 50%;
-			right: var(--lPadding);
-
-			height: calc(100% - var(--lPadding) - var(--sPadding));
-			translate: 0 -50%;
-		}
-	}
-
-	&.btnBox {
-		display: flex;
-		gap: var(--sPadding);
-
-		#searcher {
-			border-radius: .7rem 0 0 .7rem;
-		}
-	}
-}
 .navbar {
 	display: flex;
 	justify-content: space-between;
@@ -100,45 +52,4 @@
 	& a, svg {
 		height: inherit;
 	}
-}
-#filterList {
-	display: flex;
-	flex-flow: column nowrap;
-
-	height: 100%;
-	overflow-y: scroll;
-
-	.item {
-		display: flex;
-		gap: var(--sPadding);
-		height: var(--itemH);
-		margin-bottom: var(--padding);
-
-		#main {
-			display: -webkit-box;
-			background-color: var(--itemBg);
-			gap: var(--padding);
-
-			padding: var(--padding);
-			border-radius: .375rem;
-			width: 100%;
-
-			#value {
-				font-size: 20px;
-			}
-		}
-		.navbar {
-			gap: inherit;
-	
-			> div, svg {
-				background-color: var(--itemBg);
-				padding: var(--sPadding);
-				border-radius: 0.375rem;
-				height: 100%;
-			}
-		}
-	}
-}
-main:has(#fullSize) {
-	padding: 0;
 }

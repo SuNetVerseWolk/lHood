@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import Navbar from '../layouts/Navbar'
 import Avatar from './Avatar'
 import ItemsBtn from './ItemsBtn'
+import style from 'styles/item.module.css'
 
 const Item = ({children, id, value, img, i, isAvatarPhotoShown = true}) => {
 	const navigate = useNavigate();
@@ -25,13 +26,13 @@ const Item = ({children, id, value, img, i, isAvatarPhotoShown = true}) => {
 
 	return (
 		<motion.div
-			className='item'
+			className={style.item}
 			animate={item.showen}
 			initial={item.hidden}
 			transition={{ease: 'easeOut', delay: i * .1 }}
 		>
 			<motion.div
-				id="main"
+				className={style.main}
 				whileTap={{scale: .98}}
 				onTouchStartCapture={e => {
 					isHolded = true;
@@ -45,7 +46,7 @@ const Item = ({children, id, value, img, i, isAvatarPhotoShown = true}) => {
 				onClick={e => navigate('/lHood/patterns/' + value)}
 			>
 				{isAvatarShown && <Avatar src={img} href='' setIsShown={setIsAvatarShown} shouldIsShown={isAvatarPhotoShown} />}
-				<p id='value'>{value}</p>
+				<p className={style.value}>{value}</p>
 			</motion.div>
 			<motion.div
 				initial={item.hidden}

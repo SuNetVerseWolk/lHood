@@ -1,0 +1,30 @@
+.item {
+	display: flex;
+	gap: var(--sPadding);
+	height: var(--itemH);
+	margin-bottom: var(--padding);
+
+	.main {
+		display: -webkit-box;
+		background-color: var(--itemBg);
+		gap: var(--padding);
+
+		padding: var(--padding);
+		border-radius: .375rem;
+		width: 100%;
+
+		.value {
+			font-size: 20px;
+		}
+	}
+	.navbar {
+		gap: inherit;
+
+		> div, svg {
+			background-color: var(--itemBg);
+			padding: var(--sPadding);
+			border-radius: 0.375rem;
+			height: 100%;
+		}
+	}
+}
