@@ -28,11 +28,11 @@ export const Searcher = ({searchValue, setSearchValue}) => {
 			<div className={searchIcon}>
 				<SearchSvg />
 			</div>
-			<div className={tools}>
-				{patternsPage && (
+			{patternsPage && (
+				<div className={tools}>
 					<AddBoxes className={svgButton} />
-				)}
-			</div>
+				</div>
+			)}
 		</motion.label>
 	)
 }
