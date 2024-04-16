@@ -1,5 +1,20 @@
 .profilePage {
 	width: 100%;
+	position: relative;
+
+	.columnSvg {
+		width: 10svw;
+		border-radius: 10px;
+
+		position: absolute;
+		top: 0;
+		right: 0;
+
+		margin: var(--sPadding);
+		padding: var(--padding);
+		background: var(--bgBlack);
+		fill: var(--gonnaLearnColor);
+	}
 
 	.profile {
 		translate: 0 -18vw;

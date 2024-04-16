@@ -4,8 +4,10 @@ import { useQuery } from '@tanstack/react-query'
 import Empty from '../layouts/Empty'
 import getDataAPI from '../data/getDataAPI'
 import Image, { fonImage } from '../components/ui/Image'
-import { profilePage, profile, avatar, user } from 'styles/profile.module.css'
+import { profilePage, profile, avatar, user, columnSvg } from 'styles/profile.module.css'
 import Avatar from 'components/Avatar'
+import { motion } from 'framer-motion'
+import ThreeDotColumnSvg from 'components/svg/ThreeDotColumnSvg'
 
 const Profile = () => {
 	const
@@ -22,7 +24,8 @@ const Profile = () => {
 					<Empty>Loading...</Empty>
 				) : (
 					<div className={profilePage}>
-						<Image src={data.fon} style={fonImage} isEditable={true} alt='profileFon' />
+						<Image src={data.fon} style={fonImage} isEditable={false} alt='profileFon' />
+						<ThreeDotColumnSvg style={columnSvg} />
 						<div className={profile}>
 							<div className={user}>
 								<h1>{data.name}</h1>

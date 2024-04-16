@@ -1,6 +1,6 @@
 import React from 'react'
 import SearchSvg from '../../assets/search.svg?react'
-import AddBoxes from '../AddPattern';
+import AddBoxes from '../svg/AddPatternSvg';
 import { useParams } from 'react-router-dom';
 import { motion } from 'framer-motion'
 import { searcher, svgButton, btnBox, tools, searchIcon } from 'styles/searcher.module.css'
